@@ -355,8 +355,10 @@
     .zone small { display: block; margin-bottom: 3px; color: var(--game-ink-soft); }
     .zone strong { color: var(--game-green-deep); font-size: 0.92rem; }
     .side-list { display: grid; gap: 5px; margin: 14px 0; padding: 0; list-style: none; }
-    .side-list li { padding: 8px 9px; border: 2px solid transparent; border-radius: 5px; color: var(--game-ink-soft); font-size: 0.87rem; }
-    .side-list li.active { border-color: #d3ac48; color: var(--game-ink); background: #f7df84; box-shadow: inset 0 0 0 1px #fff0b1; }
+    .side-list li { border-radius: 5px; }
+    .side-nav { width: 100%; padding: 8px 9px; border: 2px solid transparent; border-radius: 5px; color: var(--game-ink-soft); background: transparent; text-align: left; font-size: 0.87rem; }
+    .side-nav:hover { border-color: #a5bb8d; background: #f5f0cf; }
+    .side-list li.active .side-nav { border-color: #d3ac48; color: var(--game-ink); background: #f7df84; box-shadow: inset 0 0 0 1px #fff0b1; }
     .side-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding-top: 12px; border-top: 2px dashed #9db38c; }
     .side-stat { padding: 7px; border-radius: 5px; background: #d3e6bb; text-align: center; }
     .side-stat strong { display: block; color: var(--game-green-deep); font-size: 1rem; }
@@ -392,6 +394,9 @@
     .roadmap-week { margin-bottom: 12px; color: var(--game-green); }
     .roadmap-item h3, .review-card h3 { color: var(--game-green-deep); }
     .roadmap-item p, .review-card p, .priority p { color: var(--game-ink-soft); }
+    .roadmap-item ul { margin: 10px 0 0; padding-left: 1.1rem; color: var(--game-ink-soft); font-size: 0.82rem; line-height: 1.5; }
+    .roadmap-item li + li { margin-top: 4px; }
+    .roadmap-item.is-target { outline: 4px solid #e0ba51; outline-offset: 2px; background: #fff0a7; }
     .review-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
     .priority-list { border-top-color: #a5ba8f; }
     .priority { grid-template-columns: 105px 1fr 1fr; padding: 14px 6px; border-bottom-color: #a5ba8f; }
@@ -450,12 +455,15 @@
       <aside class="quest-sidebar" aria-label="冒险地图">
         <h2>你的冒险</h2>
         <div class="zone"><small>当前区域</small><strong>原理森林 · 第一阶段</strong></div>
-        <ul class="side-list">
-          <li class="active">● 第 1 周：对象小径</li>
-          <li>○ 第 2 周：并发工坊</li>
-          <li>○ 第 3 周：架构之城</li>
-          <li>○ 第 4 周：性能高塔</li>
-          <li>○ 第 5–8 周：面试联盟</li>
+        <ul class="side-list" aria-label="按周查看计划">
+          <li class="active"><button class="side-nav" type="button" data-week="1">● 第 1 周：对象小径</button></li>
+          <li><button class="side-nav" type="button" data-week="2">○ 第 2 周：并发工坊</button></li>
+          <li><button class="side-nav" type="button" data-week="3">○ 第 3 周：架构之城</button></li>
+          <li><button class="side-nav" type="button" data-week="4">○ 第 4 周：性能高塔</button></li>
+          <li><button class="side-nav" type="button" data-week="5">○ 第 5 周：简历驿站</button></li>
+          <li><button class="side-nav" type="button" data-week="6">○ 第 6 周：专项秘境</button></li>
+          <li><button class="side-nav" type="button" data-week="7">○ 第 7 周：模拟道场</button></li>
+          <li><button class="side-nav" type="button" data-week="8">○ 第 8 周：面试联盟</button></li>
         </ul>
         <div class="side-stats">
           <div class="side-stat"><strong>14</strong><span>主线任务</span></div>
@@ -467,7 +475,7 @@
     <section class="panel" id="daily-panel" role="tabpanel" aria-labelledby="daily-tab">
       <div class="section-intro"><div><p class="eyebrow">第一阶段</p><h2>先建立能说清的底层能力</h2></div><p>每天按“视频 → 最小 Demo → 脱稿复述 → 算法”推进。源码不用逐行背，重点是把原理连到常见问题和项目处理方式。</p></div>
 
-      <section class="week" data-week="1">
+      <section class="week" id="week-1" data-week="1">
         <header class="week-header"><div><p class="week-label">第 1 周</p><h2>对象、内存与消息机制</h2></div><span class="week-count" data-week-progress="1">0 / 6</span></header>
         <ol class="day-list">
           <li class="day"><label class="day-check"><input type="checkbox" data-id="d1"><span class="sr-only">完成第 1 天</span></label><div class="day-heading"><span class="day-index">第 1 天</span><strong class="day-focus">对象模型、Runtime 入门</strong></div><p class="day-video">视频 1：源码探索方式<br>视频 7：isa 与类关联</p><p class="day-output">画出对象、类对象、元类关系；脱稿说明 isa 的作用。</p></li>
@@ -479,7 +487,7 @@
         </ol>
       </section>
 
-      <section class="week" data-week="2">
+      <section class="week" id="week-2" data-week="2">
         <header class="week-header"><div><p class="week-label">第 2 周</p><h2>转发、并发、UI 与工程基础</h2></div><span class="week-count" data-week-progress="2">0 / 8</span></header>
         <ol class="day-list">
           <li class="day"><label class="day-check"><input type="checkbox" data-id="d7"><span class="sr-only">完成第 7 天</span></label><div class="day-heading"><span class="day-index">第 7 天</span><strong class="day-focus">慢速查找、消息转发</strong></div><p class="day-video">视频 13：慢速查找<br>视频 14：消息转发</p><p class="day-output">讲清动态方法解析、快速转发、完整消息转发三阶段。</p></li>
@@ -497,14 +505,14 @@
     <section class="panel" id="roadmap-panel" role="tabpanel" aria-labelledby="roadmap-tab" hidden>
       <div class="section-intro"><div><p class="eyebrow">全局路线</p><h2>8 周，从恢复到面试闭环</h2></div><p>第 3 周开始投递。后续的每一周都应该有真实岗位 JD 和真实面试反馈参与校准。</p></div>
       <div class="roadmap">
-        <article class="roadmap-item"><span class="roadmap-week">第 1 周</span><h3>底层与 Swift 核心</h3><p>对象、Runtime、内存、Swift 值语义与 Concurrency。</p></article>
-        <article class="roadmap-item"><span class="roadmap-week">第 2 周</span><h3>并发与客户端基础</h3><p>GCD、RunLoop、UI、网络、持久化与性能意识。</p></article>
-        <article class="roadmap-item"><span class="roadmap-week">第 3 周</span><h3>架构与展示项目</h3><p>启动 AI 内容/推荐流项目；开始定向投递。</p></article>
-        <article class="roadmap-item"><span class="roadmap-week">第 4 周</span><h3>性能与稳定性</h3><p>启动、卡顿、内存、崩溃、测试和发布流程。</p></article>
-        <article class="roadmap-item"><span class="roadmap-week">第 5 周</span><h3>简历与项目表达</h3><p>准备 5 个项目故事；稳定开启真实面试。</p></article>
-        <article class="roadmap-item"><span class="roadmap-week">第 6 周</span><h3>专项方向</h3><p>优先深挖 AI 应用客户端；或选择音视频 / IoT。</p></article>
-        <article class="roadmap-item"><span class="roadmap-week">第 7 周</span><h3>模拟面试与算法</h3><p>高频算法 80–100 题，每天至少一轮模拟。</p></article>
-        <article class="roadmap-item"><span class="roadmap-week">第 8 周</span><h3>面试闭环</h3><p>以面试反馈与目标 JD 为准，精准补齐短板。</p></article>
+        <article class="roadmap-item" id="week-1"><span class="roadmap-week">第 1 周</span><h3>底层与 Swift 核心</h3><p>对象、Runtime、内存、Swift 值语义与 Concurrency。</p><ul><li>完成对象、内存与消息机制的 6 个关卡。</li><li>补齐 Swift 值语义、闭包和泛型。</li></ul></article>
+        <article class="roadmap-item" id="week-2"><span class="roadmap-week">第 2 周</span><h3>并发与客户端基础</h3><p>GCD、RunLoop、UI、网络、持久化与性能意识。</p><ul><li>完成并发、响应链、性能和沙盒的 8 个关卡。</li><li>复盘一轮高频算法：链表、树、二分。</li></ul></article>
+        <article class="roadmap-item" id="week-3"><span class="roadmap-week">第 3 周 · 架构之城</span><h3>架构与展示项目</h3><p>启动 AI 内容 / 推荐流展示项目，并开始定向投递。</p><ul><li>Day 1–2：MVVM、Coordinator、SPM 模块化与路由。</li><li>Day 3–5：推荐流、埋点 / 分桶、AI 流式对话模块。</li><li>Day 6：画架构图，讲清模块边界与技术取舍。</li></ul></article>
+        <article class="roadmap-item" id="week-4"><span class="roadmap-week">第 4 周 · 性能高塔</span><h3>性能与稳定性</h3><p>把“性能优化”做成可演示、可量化的项目能力。</p><ul><li>启动耗时、列表卡顿、内存峰值与缓存治理。</li><li>使用 Instruments 完成一次定位和复盘。</li><li>补核心单测、灰度与崩溃治理方案。</li></ul></article>
+        <article class="roadmap-item" id="week-5"><span class="roadmap-week">第 5 周 · 简历驿站</span><h3>简历与项目表达</h3><p>把能力转化成面试官能快速识别的信号。</p><ul><li>重写简历：iOS 3.5 年 + 推荐策略 1.5 年。</li><li>准备架构、性能、故障、协作、策略联动 5 个故事。</li><li>每天投递 10–15 个高匹配岗位。</li></ul></article>
+        <article class="roadmap-item" id="week-6"><span class="roadmap-week">第 6 周 · 专项秘境</span><h3>AI 应用客户端（推荐）</h3><p>选择一个垂直方向深入，不再平均用力。</p><ul><li>AI：SSE / WebSocket、流式 UI、多轮会话、Markdown。</li><li>或音视频：AVFoundation、预加载、缓存、首帧。</li><li>或 IoT：BLE、MQTT、配网、断线重连。</li></ul></article>
+        <article class="roadmap-item" id="week-7"><span class="roadmap-week">第 7 周 · 模拟道场</span><h3>模拟面试与算法</h3><p>让知识变成稳定输出，提前暴露表达断点。</p><ul><li>每天 1 场 60–90 分钟模拟：基础、项目、算法、行为面。</li><li>完成高频算法 80–100 题的重点复盘。</li><li>当天把不会的问题补成可口述答案。</li></ul></article>
+        <article class="roadmap-item" id="week-8"><span class="roadmap-week">第 8 周 · 面试联盟</span><h3>面试闭环</h3><p>用真实 JD 和真实面试反馈，精准收口短板。</p><ul><li>每场面试后 30 分钟内记录问题与缺口。</li><li>完善 30 秒 / 2 分钟 Gap 说明和项目自我介绍。</li><li>不再泛学，只补目标岗位反复出现的能力。</li></ul></article>
       </div>
     </section>
 
@@ -537,6 +545,7 @@
       const checks = Array.from(root.querySelectorAll('input[type="checkbox"][data-id]'));
       const tabs = Array.from(root.querySelectorAll('[role="tab"]'));
       const panels = Array.from(root.querySelectorAll('[role="tabpanel"]'));
+      const sideNav = Array.from(root.querySelectorAll('.side-nav'));
       const number = root.querySelector('#progress-number');
       const fill = root.querySelector('#progress-fill');
       const percent = root.querySelector('#progress-percent');
@@ -568,13 +577,29 @@
         });
       });
 
+      function showPanel(target) {
+        tabs.forEach((item) => item.setAttribute('aria-selected', String(item.getAttribute('aria-controls') === target)));
+        panels.forEach((panel) => { panel.hidden = panel.id !== target; });
+      }
+
+      function activateWeek(week) {
+        const targetPanel = Number(week) <= 2 ? 'daily-panel' : 'roadmap-panel';
+        showPanel(targetPanel);
+        sideNav.forEach((button) => button.closest('li').classList.toggle('active', button.dataset.week === String(week)));
+        root.querySelectorAll('.roadmap-item').forEach((item) => item.classList.remove('is-target'));
+        const target = root.querySelector(`#week-${week}`);
+        if (target) {
+          if (Number(week) >= 3) target.classList.add('is-target');
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+
       tabs.forEach((tab) => {
         tab.addEventListener('click', () => {
-          const target = tab.getAttribute('aria-controls');
-          tabs.forEach((item) => item.setAttribute('aria-selected', String(item === tab)));
-          panels.forEach((panel) => { panel.hidden = panel.id !== target; });
+          showPanel(tab.getAttribute('aria-controls'));
         });
       });
+      sideNav.forEach((button) => button.addEventListener('click', () => activateWeek(button.dataset.week)));
       updateProgress();
     })();
   </script>
