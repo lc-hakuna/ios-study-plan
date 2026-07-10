@@ -397,6 +397,17 @@
     .roadmap-item ul { margin: 10px 0 0; padding-left: 1.1rem; color: var(--game-ink-soft); font-size: 0.82rem; line-height: 1.5; }
     .roadmap-item li + li { margin-top: 4px; }
     .roadmap-item.is-target { outline: 4px solid #e0ba51; outline-offset: 2px; background: #fff0a7; }
+    .campaign { margin: 0 0 18px; scroll-margin-top: 18px; }
+    .campaign-header { display: flex; align-items: end; justify-content: space-between; gap: 14px; padding: 11px 4px; border-bottom: 3px solid var(--game-green-deep); }
+    .campaign-header span { color: var(--game-green); font-size: 0.78rem; font-weight: 500; }
+    .campaign-header h2 { color: var(--game-green-deep); font-size: 1.12rem; }
+    .campaign-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; padding-top: 10px; }
+    .campaign-grid article { padding: 12px; border: 3px solid #a4b78b; border-radius: 7px; background: #fff9df; box-shadow: inset 0 0 0 2px #fffdf2; }
+    .campaign-grid b { display: inline-block; margin-bottom: 5px; padding: 3px 6px; border-radius: 4px; color: #fffbe9; background: var(--game-green); font-size: 0.72rem; }
+    .campaign-grid h3 { color: var(--game-green-deep); font-size: 0.91rem; }
+    .campaign-grid p { margin-top: 5px; color: var(--game-ink-soft); font-size: 0.8rem; line-height: 1.5; }
+    .campaign.is-target .campaign-header { border-color: #d5ad45; }
+    .campaign.is-target .campaign-grid { outline: 4px solid #e0ba51; outline-offset: 3px; border-radius: 8px; }
     .review-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
     .priority-list { border-top-color: #a5ba8f; }
     .priority { grid-template-columns: 105px 1fr 1fr; padding: 14px 6px; border-bottom-color: #a5ba8f; }
@@ -421,6 +432,7 @@
       .game-sign { padding: 14px; }
       .game-sign h1 { font-size: 1.6rem; }
       .roadmap, .review-grid { grid-template-columns: 1fr; }
+      .campaign-grid { grid-template-columns: 1fr; }
       .priority { grid-template-columns: 1fr; gap: 4px; }
     }
   </style>
@@ -448,6 +460,7 @@
     <nav class="game-toolbar" role="tablist" aria-label="学习计划视图">
       <button class="tab" type="button" role="tab" id="daily-tab" aria-selected="true" aria-controls="daily-panel">前两周逐日安排</button>
       <button class="tab" type="button" role="tab" id="roadmap-tab" aria-selected="false" aria-controls="roadmap-panel">8 周路线图</button>
+      <button class="tab" type="button" role="tab" id="mission-tab" aria-selected="false" aria-controls="mission-panel">第 3–8 周详表</button>
       <button class="tab" type="button" role="tab" id="review-tab" aria-selected="false" aria-controls="review-panel">复习方法与优先级</button>
     </nav>
 
@@ -487,6 +500,12 @@
         </ol>
       </section>
 
+      <aside class="parallel-training" aria-label="第 1 周并行训练">
+        <strong>第 1 周并行训练（每天 60–90 分钟）</strong>
+        <span>Swift：值 / 引用语义、Copy-on-Write、闭包、泛型、协议扩展。</span>
+        <span>算法：数组、字符串、哈希、双指针，每天 3–5 题。</span>
+      </aside>
+
       <section class="week" id="week-2" data-week="2">
         <header class="week-header"><div><p class="week-label">第 2 周</p><h2>转发、并发、UI 与工程基础</h2></div><span class="week-count" data-week-progress="2">0 / 8</span></header>
         <ol class="day-list">
@@ -500,6 +519,12 @@
           <li class="day"><label class="day-check"><input type="checkbox" data-id="d14"><span class="sr-only">完成第 14 天</span></label><div class="day-heading"><span class="day-index">第 14 天</span><strong class="day-focus">架构与设计模式</strong></div><p class="day-video">视频 28：MVC/MVP/MVVM 等</p><p class="day-output">画展示项目的 MVVM + Coordinator 架构与模块边界。</p></li>
         </ol>
       </section>
+
+      <aside class="parallel-training" aria-label="第 2 周并行训练">
+        <strong>第 2 周并行训练（每天 60–90 分钟）</strong>
+        <span>补齐 RunLoop、URLSession / HTTP 缓存、Keychain 与持久化；Swift Concurrency 不能只用 GCD 替代。</span>
+        <span>算法：链表、栈队列、二叉树、二分、递归与基础动态规划。</span>
+      </aside>
     </section>
 
     <section class="panel" id="roadmap-panel" role="tabpanel" aria-labelledby="roadmap-tab" hidden>
@@ -514,6 +539,85 @@
         <article class="roadmap-item" id="week-7"><span class="roadmap-week">第 7 周 · 模拟道场</span><h3>模拟面试与算法</h3><p>让知识变成稳定输出，提前暴露表达断点。</p><ul><li>每天 1 场 60–90 分钟模拟：基础、项目、算法、行为面。</li><li>完成高频算法 80–100 题的重点复盘。</li><li>当天把不会的问题补成可口述答案。</li></ul></article>
         <article class="roadmap-item" id="week-8"><span class="roadmap-week">第 8 周 · 面试联盟</span><h3>面试闭环</h3><p>用真实 JD 和真实面试反馈，精准收口短板。</p><ul><li>每场面试后 30 分钟内记录问题与缺口。</li><li>完善 30 秒 / 2 分钟 Gap 说明和项目自我介绍。</li><li>不再泛学，只补目标岗位反复出现的能力。</li></ul></article>
       </div>
+    </section>
+
+    <section class="panel" id="mission-panel" role="tabpanel" aria-labelledby="mission-tab" hidden>
+      <div class="section-intro">
+        <div><p class="eyebrow">主线任务 · 第 3–8 周</p><h2>从“会原理”走到“能拿 Offer”</h2></div>
+        <p>默认每天 5–6 小时：2 小时主题学习，1.5 小时项目，1 小时算法，0.5–1.5 小时复盘 / 投递。第 3 周起不等复习完就开始面试。</p>
+      </div>
+
+      <section class="campaign" id="week-3-detail">
+        <header class="campaign-header"><span>第 3 周 · 架构之城</span><h2>架构、组件化与展示项目启动</h2></header>
+        <div class="campaign-grid">
+          <article><b>Day 1</b><h3>架构设计</h3><p>比较 MVC、MVVM、Coordinator、单向数据流；为展示项目画模块边界。</p></article>
+          <article><b>Day 2</b><h3>组件化</h3><p>SPM / CocoaPods、静态库与动态库、路由、依赖倒置和跨模块通信。</p></article>
+          <article><b>Day 3</b><h3>项目骨架</h3><p>搭建 Swift 项目：Network、DesignSystem、Feed、Detail、Profile、Analytics。</p></article>
+          <article><b>Day 4</b><h3>推荐流</h3><p>实现猜你喜欢 / 热门 Tab；设计曝光、点击、停留、收藏埋点和模拟分桶。</p></article>
+          <article><b>Day 5</b><h3>AI 模块</h3><p>实现流式回答 UI、取消、重试、错误状态；支持 Markdown 或代码块展示。</p></article>
+          <article><b>Day 6</b><h3>架构复盘</h3><p>录音回答：为何选 MVVM、如何解耦、需求频繁变化时如何控复杂度。</p></article>
+        </div>
+      </section>
+
+      <section class="campaign" id="week-4-detail">
+        <header class="campaign-header"><span>第 4 周 · 性能高塔</span><h2>性能、稳定性、工程质量</h2></header>
+        <div class="campaign-grid">
+          <article><b>Day 1</b><h3>启动优化</h3><p>拆分冷 / 热启动；采集启动阶段耗时；写延迟加载与异步初始化方案。</p></article>
+          <article><b>Day 2</b><h3>卡顿掉帧</h3><p>用 Time Profiler / Core Animation 定位列表卡顿；处理图片解码与主线程阻塞。</p></article>
+          <article><b>Day 3</b><h3>内存与崩溃</h3><p>排查泄漏、内存峰值、缓存失控、OOM；练一次崩溃符号化和归因。</p></article>
+          <article><b>Day 4</b><h3>包体与功耗</h3><p>资源压缩、无用代码、后台任务、网络合并与弱网节流的取舍。</p></article>
+          <article><b>Day 5</b><h3>测试与发布</h3><p>为网络层、推荐分桶补单测；整理 CI、灰度、开关、回滚方案。</p></article>
+          <article><b>Day 6</b><h3>性能模拟面</h3><p>连续口述启动、卡顿、OOM、复杂列表、崩溃治理五个专题。</p></article>
+        </div>
+      </section>
+
+      <section class="campaign" id="week-5-detail">
+        <header class="campaign-header"><span>第 5 周 · 简历驿站</span><h2>简历、项目表达与真实面试</h2></header>
+        <div class="campaign-grid">
+          <article><b>Day 1</b><h3>改简历</h3><p>写成“5 年研发：iOS 3.5 年 + 推荐策略 1.5 年”；每段都体现结果。</p></article>
+          <article><b>Day 2</b><h3>五个故事</h3><p>准备架构重构、性能优化、线上故障、协作推进、策略与客户端联动。</p></article>
+          <article><b>Day 3</b><h3>Gap 与行为面</h3><p>准备 30 秒与 2 分钟版本：休整、恢复训练、确定回归客户端方向。</p></article>
+          <article><b>Day 4</b><h3>项目演示</h3><p>录制展示项目讲解；确保能说清背景、职责、难点、取舍和结果。</p></article>
+          <article><b>Day 5</b><h3>开始投递</h3><p>投 10–15 个高匹配职位：AI / 内容 / 工具 / IoT；记录 JD 关键词。</p></article>
+          <article><b>Day 6</b><h3>反馈闭环</h3><p>每场面试后 30 分钟内记录问题、不会的点和下一轮改法。</p></article>
+        </div>
+      </section>
+
+      <section class="campaign" id="week-6-detail">
+        <header class="campaign-header"><span>第 6 周 · 专项秘境</span><h2>选一个方向深挖</h2></header>
+        <div class="campaign-grid">
+          <article><b>Day 1</b><h3>AI 流式协议</h3><p>学习 SSE / WebSocket 的边界；实现增量内容、取消、超时和重试。</p></article>
+          <article><b>Day 2</b><h3>会话体验</h3><p>多轮会话、历史持久化、滚动定位、输入状态与失败恢复。</p></article>
+          <article><b>Day 3</b><h3>富文本能力</h3><p>Markdown、代码块、文件上传、多模态 UI 的客户端设计。</p></article>
+          <article><b>Day 4</b><h3>隐私与成本</h3><p>明确敏感数据处理、流量 / 延迟监控、失败降级与端侧体验取舍。</p></article>
+          <article><b>Day 5</b><h3>可选分支</h3><p>内容方向补 AVFoundation；IoT 方向补 BLE、MQTT、配网与重连。</p></article>
+          <article><b>Day 6</b><h3>专项复盘</h3><p>把专项能力写进项目和简历；准备一个能够现场演示的亮点。</p></article>
+        </div>
+      </section>
+
+      <section class="campaign" id="week-7-detail">
+        <header class="campaign-header"><span>第 7 周 · 模拟道场</span><h2>高强度模拟面试与算法</h2></header>
+        <div class="campaign-grid">
+          <article><b>Day 1</b><h3>基础面</h3><p>模拟 Runtime、内存、RunLoop、网络；把答案压缩成可连续输出的版本。</p></article>
+          <article><b>Day 2</b><h3>并发面</h3><p>模拟 GCD、锁、死锁、Swift Concurrency 与线程安全缓存设计。</p></article>
+          <article><b>Day 3</b><h3>架构项目面</h3><p>完整讲展示项目；接受“为什么不用另一套方案”的追问。</p></article>
+          <article><b>Day 4</b><h3>性能专题面</h3><p>启动、卡顿、OOM、列表、崩溃五题连答，并补真实案例。</p></article>
+          <article><b>Day 5</b><h3>算法集中练</h3><p>LRU、链表、树、二分、Top K、岛屿、最长子串、零钱兑换。</p></article>
+          <article><b>Day 6</b><h3>综合面</h3><p>完成一场 60–90 分钟全流程模拟：项目、基础、算法、行为面。</p></article>
+        </div>
+      </section>
+
+      <section class="campaign" id="week-8-detail">
+        <header class="campaign-header"><span>第 8 周 · 面试联盟</span><h2>只补真实缺口，持续拿面试</h2></header>
+        <div class="campaign-grid">
+          <article><b>Day 1</b><h3>面试账本</h3><p>汇总所有提问，按基础 / 项目 / 算法 / 行为面分类并排序。</p></article>
+          <article><b>Day 2</b><h3>JD 对齐</h3><p>挑目标岗位，把每条要求映射到简历项目、展示项目或学习计划。</p></article>
+          <article><b>Day 3</b><h3>编码保持</h3><p>维持每天 1 小时算法；复写最容易卡住的 20 道题。</p></article>
+          <article><b>Day 4</b><h3>表达收口</h3><p>反复练自我介绍、Gap、职业选择和 5 个项目故事。</p></article>
+          <article><b>Day 5</b><h3>面试实战</h3><p>按目标公司进行针对性补课；当日反馈当日整理。</p></article>
+          <article><b>Day 6</b><h3>迭代计划</h3><p>删除不再需要的泛学内容；保留最有效的投递、项目和模拟节奏。</p></article>
+        </div>
+      </section>
     </section>
 
     <section class="panel" id="review-panel" role="tabpanel" aria-labelledby="review-tab" hidden>
@@ -583,11 +687,12 @@
       }
 
       function activateWeek(week) {
-        const targetPanel = Number(week) <= 2 ? 'daily-panel' : 'roadmap-panel';
+        const targetPanel = Number(week) <= 2 ? 'daily-panel' : 'mission-panel';
         showPanel(targetPanel);
         sideNav.forEach((button) => button.closest('li').classList.toggle('active', button.dataset.week === String(week)));
         root.querySelectorAll('.roadmap-item').forEach((item) => item.classList.remove('is-target'));
-        const target = root.querySelector(`#week-${week}`);
+        root.querySelectorAll('.campaign').forEach((item) => item.classList.remove('is-target'));
+        const target = Number(week) <= 2 ? root.querySelector(`#week-${week}`) : root.querySelector(`#week-${week}-detail`);
         if (target) {
           if (Number(week) >= 3) target.classList.add('is-target');
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
