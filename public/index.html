@@ -120,33 +120,349 @@
       .priority { grid-template-columns: 1fr; gap: 6px; }
       .priority p:last-child { grid-column: auto; }
     }
+    /* Intentional light workspace: the plan should feel calm and legible for daily use. */
+    :root {
+      color-scheme: light;
+      --background: Canvas;
+      --foreground: CanvasText;
+      --card: color-mix(in srgb, var(--foreground) 3%, var(--background));
+      --card-strong: color-mix(in srgb, var(--foreground) 5%, var(--background));
+      --muted: color-mix(in srgb, var(--foreground) 52%, var(--background));
+      --border: color-mix(in srgb, var(--foreground) 12%, transparent);
+      --accent: AccentColor;
+      --accent-foreground: AccentColorText;
+      --accent-soft: color-mix(in srgb, var(--accent) 10%, var(--background));
+      --shadow: color-mix(in srgb, var(--foreground) 7%, transparent);
+    }
+
+    body {
+      min-width: 320px;
+      background: var(--background);
+      color: var(--foreground);
+    }
+
+    .page {
+      width: min(1200px, calc(100% - 40px));
+      padding: 26px 0 64px;
+    }
+
+    .hero {
+      grid-template-columns: minmax(0, 1fr) 310px;
+      gap: 28px;
+      align-items: center;
+      margin-bottom: 22px;
+      padding: 0 0 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-copy { gap: 12px; }
+    .eyebrow { margin-bottom: 4px; font-size: 0.75rem; letter-spacing: 0.1em; }
+    h1 { max-width: none; font-size: clamp(2rem, 3.5vw, 2.85rem); letter-spacing: -0.045em; line-height: 1.12; }
+    .lede { max-width: 48rem; font-size: 0.95rem; line-height: 1.65; }
+    .pill-row { margin-top: 3px; }
+    .pill { min-height: 28px; font-size: 0.8rem; }
+
+    .progress-card {
+      padding: 18px;
+      border-radius: 14px;
+      background: var(--card);
+      box-shadow: 0 8px 24px var(--shadow);
+    }
+    .progress-number { font-size: 1.55rem; }
+    .progress-top { margin-bottom: 10px; }
+    .progress-foot { margin-top: 9px; }
+
+    .tabs {
+      gap: 4px;
+      margin-bottom: 24px;
+      padding: 5px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--card);
+    }
+    .tab { min-height: 36px; padding: 0 12px; font-size: 0.88rem; }
+    .tab[aria-selected="true"] { border-color: transparent; background: var(--background); box-shadow: 0 1px 3px var(--shadow); }
+
+    .section-intro {
+      align-items: center;
+      margin: 0 0 18px;
+      padding: 18px 20px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--accent-soft);
+    }
+    .section-intro h2 { font-size: 1.45rem; letter-spacing: -0.035em; }
+    .section-intro p { font-size: 0.9rem; line-height: 1.55; }
+
+    .week { margin-bottom: 30px; }
+    .week-header { padding: 12px 4px; border-bottom: 1px solid var(--border); }
+    .week-label { margin-bottom: 3px; font-size: 0.78rem; }
+    .week-header h2 { font-size: 1.22rem; }
+
+    .day-list { display: grid; gap: 8px; padding-top: 10px; }
+    .day {
+      grid-template-columns: 28px minmax(150px, 0.85fr) minmax(215px, 1.1fr) minmax(220px, 1.2fr);
+      gap: 14px;
+      align-items: center;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--card);
+    }
+    .day:hover { background: var(--card-strong); }
+    .day-check { padding: 0; }
+    .day-check input { width: 18px; height: 18px; }
+    .day-heading { gap: 2px; }
+    .day-index { font-size: 0.74rem; }
+    .day-focus { font-size: 0.95rem; }
+    .day-video { font-size: 0.88rem; line-height: 1.48; }
+    .day-output { font-size: 0.86rem; line-height: 1.5; }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .roadmap { gap: 10px; border: 0; border-radius: 0; background: transparent; }
+    .roadmap-item { min-height: 150px; padding: 18px; border: 1px solid var(--border); border-radius: 12px; background: var(--card); }
+    .roadmap-item:nth-child(3n + 1) { background: var(--accent-soft); }
+    .roadmap-week { margin-bottom: 22px; }
+    .review-card { border-radius: 12px; }
+
+    @media (max-width: 800px) {
+      .page { width: min(100% - 24px, 1200px); }
+      .hero { grid-template-columns: 1fr; gap: 16px; }
+      .progress-card { width: 100%; }
+      .section-intro { display: grid; gap: 12px; }
+      .day { grid-template-columns: 28px minmax(0, 1fr); gap: 6px 12px; align-items: start; }
+      .day-heading, .day-video, .day-output { grid-column: 2; }
+      .day-video { margin-top: 6px; }
+      .day-output { margin-top: 2px; }
+    }
+    /* Learning town visual system — original pixel-adventure styling. */
+    :root {
+      color-scheme: light;
+      --game-ink: #253d32;
+      --game-ink-soft: #5d7564;
+      --game-cream: #fff9de;
+      --game-sand: #eee4b9;
+      --game-mint: #d8e7c5;
+      --game-green: #4e7e57;
+      --game-green-deep: #274c3a;
+      --game-green-soft: #a6c98d;
+      --game-gold: #d5ad45;
+      --game-border: #6d8c69;
+      --game-shadow: #17322366;
+      --background: var(--game-mint);
+      --foreground: var(--game-ink);
+      --muted: var(--game-ink-soft);
+      --border: color-mix(in srgb, var(--game-green-deep) 38%, transparent);
+      --card: var(--game-cream);
+      --card-strong: #fffdf0;
+      --accent: var(--game-green);
+      --accent-foreground: #fffbe9;
+      --accent-soft: #e6f0d9;
+    }
+
+    body {
+      background-color: var(--game-mint);
+      background-image: radial-gradient(circle at 15% 4%, #f6f0c6 0 2px, transparent 3px), radial-gradient(circle at 85% 7%, #f6f0c6 0 2px, transparent 3px);
+      background-size: 36px 36px, 49px 49px;
+    }
+
+    .game-shell {
+      width: min(1280px, calc(100% - 30px));
+      margin: 24px auto 54px;
+      overflow: hidden;
+      border: 5px solid var(--game-green-deep);
+      border-radius: 14px;
+      background: var(--game-sand);
+      box-shadow: 0 12px 0 var(--game-shadow), 0 20px 44px var(--game-shadow);
+    }
+
+    .game-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 290px;
+      gap: 22px;
+      min-height: 270px;
+      padding: 28px;
+      align-items: end;
+      background-image: linear-gradient(90deg, #15341eb8 0%, #15341e70 48%, #15341e12 100%), url("assets/study-town.png");
+      background-size: cover;
+      background-position: center;
+      border-bottom: 5px solid var(--game-green-deep);
+    }
+
+    .game-sign {
+      width: min(100%, 510px);
+      padding: 20px 22px 18px;
+      border: 4px solid #64472b;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #fff6cd, #e8d28c);
+      box-shadow: 5px 5px 0 #3f2d1c, inset 0 0 0 2px #fff8db;
+    }
+    .game-sign .eyebrow { color: #77572e; font-size: 0.76rem; font-weight: 500; letter-spacing: 0.08em; }
+    .game-sign h1 { color: #284232; font-size: clamp(1.8rem, 3vw, 2.55rem); line-height: 1.15; letter-spacing: -0.04em; }
+    .game-sign .lede { margin-top: 8px; color: #52664f; font-size: 0.9rem; line-height: 1.5; }
+    .game-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+    .game-chip { padding: 5px 8px; border: 2px solid #b08841; border-radius: 5px; color: #584223; background: #fff6d7; font-size: 0.78rem; }
+
+    .adventure-card {
+      align-self: end;
+      padding: 16px;
+      border: 4px solid var(--game-green-deep);
+      border-radius: 8px;
+      color: var(--game-ink);
+      background: #f9f0c5;
+      box-shadow: 4px 4px 0 #183423a8, inset 0 0 0 2px #fffbe8;
+    }
+    .adventure-card .progress-top { margin-bottom: 8px; }
+    .adventure-card .progress-number { color: var(--game-green-deep); font-size: 1.6rem; }
+    .adventure-card .progress-track { height: 12px; border: 2px solid var(--game-green-deep); background: #d5c994; }
+    .adventure-card .progress-fill { background: linear-gradient(90deg, #88b562, #4e7e57); }
+    .adventure-card .progress-foot { margin-top: 8px; color: #617357; }
+
+    .game-toolbar {
+      display: flex;
+      gap: 8px;
+      padding: 10px 14px;
+      border-bottom: 4px solid var(--game-green-deep);
+      background: #78a66f;
+    }
+    .game-toolbar .tab {
+      min-height: 38px;
+      padding: 0 14px;
+      border: 3px solid #32573f;
+      border-radius: 5px;
+      color: #274534;
+      background: #c9dfae;
+      box-shadow: inset 0 0 0 2px #e9f4d2, 2px 2px 0 #31583f;
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+    .game-toolbar .tab[aria-selected="true"] { color: #fffbe9; background: var(--game-green-deep); box-shadow: inset 0 0 0 2px #608a62, 2px 2px 0 #1f3c2d; }
+
+    .game-layout { display: grid; grid-template-columns: 235px minmax(0, 1fr); gap: 16px; padding: 16px; }
+    .quest-sidebar { align-self: start; padding: 14px; border: 3px solid var(--game-border); border-radius: 8px; background: #e5efcc; box-shadow: inset 0 0 0 2px #fff9dc; }
+    .quest-sidebar h2 { margin: 0 0 12px; color: var(--game-green-deep); font-size: 1.05rem; }
+    .zone { margin: 0 0 10px; padding: 10px; border: 2px solid #a3bd8d; border-radius: 5px; background: #f8f3d2; }
+    .zone small { display: block; margin-bottom: 3px; color: var(--game-ink-soft); }
+    .zone strong { color: var(--game-green-deep); font-size: 0.92rem; }
+    .side-list { display: grid; gap: 5px; margin: 14px 0; padding: 0; list-style: none; }
+    .side-list li { padding: 8px 9px; border: 2px solid transparent; border-radius: 5px; color: var(--game-ink-soft); font-size: 0.87rem; }
+    .side-list li.active { border-color: #d3ac48; color: var(--game-ink); background: #f7df84; box-shadow: inset 0 0 0 1px #fff0b1; }
+    .side-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding-top: 12px; border-top: 2px dashed #9db38c; }
+    .side-stat { padding: 7px; border-radius: 5px; background: #d3e6bb; text-align: center; }
+    .side-stat strong { display: block; color: var(--game-green-deep); font-size: 1rem; }
+    .side-stat span { color: var(--game-ink-soft); font-size: 0.72rem; }
+
+    .game-content { min-width: 0; }
+    .section-intro { display: flex; align-items: center; gap: 18px; margin: 0 0 13px; padding: 14px 16px; border: 3px solid var(--game-border); border-radius: 8px; background: #f9f2d4; box-shadow: inset 0 0 0 2px #fffbe9; }
+    .section-intro .eyebrow { color: var(--game-green); font-size: 0.7rem; }
+    .section-intro h2 { color: var(--game-green-deep); font-size: 1.25rem; }
+    .section-intro p { margin-left: auto; color: var(--game-ink-soft); font-size: 0.83rem; line-height: 1.5; }
+    .week { margin: 0 0 22px; }
+    .week-header { padding: 10px 4px; border-bottom: 3px solid var(--game-green-deep); }
+    .week-label { margin: 0 0 2px; color: var(--game-green); font-weight: 500; }
+    .week-header h2 { color: var(--game-green-deep); font-size: 1.15rem; }
+    .week-count { padding: 5px 8px; border: 2px solid #a7bd90; border-radius: 5px; color: var(--game-green-deep); background: #eff4d8; }
+
+    .day-list { gap: 8px; padding-top: 10px; }
+    .day { grid-template-columns: 26px minmax(135px, 0.8fr) minmax(170px, 0.95fr) minmax(190px, 1.15fr); gap: 12px; padding: 12px; border: 3px solid #a4b78b; border-radius: 7px; background: #fff9df; box-shadow: inset 0 0 0 2px #fffdf2; }
+    .day:hover { background: #f8edbf; }
+    .day-check input { width: 19px; height: 19px; accent-color: var(--game-green); }
+    .day-index { color: var(--game-green); font-weight: 500; }
+    .day-focus { color: var(--game-ink); font-size: 0.92rem; }
+    .day-video, .day-output { color: var(--game-ink-soft); font-size: 0.82rem; }
+    .day-video::before, .day-output::before { display: block; margin-bottom: 2px; color: var(--game-green); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.05em; }
+    .day-video::before { content: "学习素材"; }
+    .day-output::before { content: "今日任务"; }
+    .day.completed { border-color: #7da16f; background: #e3f0cf; }
+    .day.completed .day-focus { text-decoration-color: #8ea78b; }
+
+    .roadmap { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; border: 0; background: transparent; }
+    .roadmap-item, .review-card { min-height: auto; padding: 15px; border: 3px solid var(--game-border); border-radius: 8px; background: #fff9df; box-shadow: inset 0 0 0 2px #fffdf2; }
+    .roadmap-item:nth-child(3n + 1) { background: #e5f0d2; }
+    .roadmap-week { margin-bottom: 12px; color: var(--game-green); }
+    .roadmap-item h3, .review-card h3 { color: var(--game-green-deep); }
+    .roadmap-item p, .review-card p, .priority p { color: var(--game-ink-soft); }
+    .review-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .priority-list { border-top-color: #a5ba8f; }
+    .priority { grid-template-columns: 105px 1fr 1fr; padding: 14px 6px; border-bottom-color: #a5ba8f; }
+    .priority strong { color: var(--game-green-deep); }
+    .footer { margin-top: 4px; padding: 14px 16px; border-top: 3px solid var(--game-green-deep); color: #eff7dc; background: var(--game-green-deep); }
+
+    @media (max-width: 860px) {
+      .game-shell { width: min(100% - 16px, 1280px); margin-top: 8px; border-width: 3px; }
+      .game-hero { grid-template-columns: 1fr; min-height: 0; padding: 18px; background-position: 62% center; }
+      .adventure-card { width: min(100%, 330px); }
+      .game-layout { grid-template-columns: 1fr; padding: 10px; }
+      .quest-sidebar { display: none; }
+      .section-intro { display: grid; gap: 8px; }
+      .section-intro p { margin-left: 0; }
+      .day { grid-template-columns: 26px minmax(0, 1fr); gap: 6px 10px; }
+      .day-heading, .day-video, .day-output { grid-column: 2; }
+      .game-toolbar { overflow-x: auto; padding: 8px; }
+      .game-toolbar .tab { flex: 0 0 auto; }
+    }
+
+    @media (max-width: 540px) {
+      .game-sign { padding: 14px; }
+      .game-sign h1 { font-size: 1.6rem; }
+      .roadmap, .review-grid { grid-template-columns: 1fr; }
+      .priority { grid-template-columns: 1fr; gap: 4px; }
+    }
   </style>
 </head>
 <body>
-  <main class="page" id="study-plan">
-    <header class="hero">
-      <div class="hero-copy">
-        <p class="eyebrow">iOS interview · 2026</p>
-        <h1>把复习变成可执行的节奏。</h1>
-        <p class="lede">面向 3–5 年经验 iOS 岗位的 8 周恢复计划。前两周已结合你的 28 节原理视频，按面试优先级重新编排。</p>
-        <div class="pill-row" aria-label="学习计划标签">
-          <span class="pill primary">8 周主计划</span>
-          <span class="pill">14 天原理视频</span>
-          <span class="pill">从第 3 周开始投递</span>
+  <main class="game-shell" id="study-plan">
+    <header class="game-hero">
+      <div class="game-sign">
+        <p class="eyebrow">IOS INTERVIEW · LEARNING TOWN</p>
+        <h1>iOS 面试冒险计划</h1>
+        <p class="lede">用 8 周重建客户端能力：先通关原理森林，再进入项目工坊，最后挑战真实面试。</p>
+        <div class="game-chips" aria-label="学习计划标签">
+          <span class="game-chip">8 周主线</span>
+          <span class="game-chip">14 个原理关卡</span>
+          <span class="game-chip">第 3 周开始投递</span>
         </div>
       </div>
-      <section class="progress-card" aria-label="整体进度">
+      <section class="adventure-card" aria-label="整体进度">
         <div class="progress-top"><span class="muted">前两周完成度</span><strong class="progress-number" id="progress-number">0 / 14</strong></div>
         <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="14" aria-valuenow="0" aria-label="前两周完成度"><div class="progress-fill" id="progress-fill"></div></div>
         <div class="progress-foot"><span>勾选会自动保存</span><span id="progress-percent">0%</span></div>
       </section>
     </header>
 
-    <nav class="tabs" role="tablist" aria-label="学习计划视图">
+    <nav class="game-toolbar" role="tablist" aria-label="学习计划视图">
       <button class="tab" type="button" role="tab" id="daily-tab" aria-selected="true" aria-controls="daily-panel">前两周逐日安排</button>
       <button class="tab" type="button" role="tab" id="roadmap-tab" aria-selected="false" aria-controls="roadmap-panel">8 周路线图</button>
       <button class="tab" type="button" role="tab" id="review-tab" aria-selected="false" aria-controls="review-panel">复习方法与优先级</button>
     </nav>
+
+    <div class="game-layout">
+      <aside class="quest-sidebar" aria-label="冒险地图">
+        <h2>你的冒险</h2>
+        <div class="zone"><small>当前区域</small><strong>原理森林 · 第一阶段</strong></div>
+        <ul class="side-list">
+          <li class="active">● 第 1 周：对象小径</li>
+          <li>○ 第 2 周：并发工坊</li>
+          <li>○ 第 3 周：架构之城</li>
+          <li>○ 第 4 周：性能高塔</li>
+          <li>○ 第 5–8 周：面试联盟</li>
+        </ul>
+        <div class="side-stats">
+          <div class="side-stat"><strong>14</strong><span>主线任务</span></div>
+          <div class="side-stat"><strong>0</strong><span>已完成</span></div>
+        </div>
+      </aside>
+      <div class="game-content">
 
     <section class="panel" id="daily-panel" role="tabpanel" aria-labelledby="daily-tab">
       <div class="section-intro"><div><p class="eyebrow">第一阶段</p><h2>先建立能说清的底层能力</h2></div><p>每天按“视频 → 最小 Demo → 脱稿复述 → 算法”推进。源码不用逐行背，重点是把原理连到常见问题和项目处理方式。</p></div>
@@ -209,6 +525,8 @@
       </div>
     </section>
 
+      </div>
+    </div>
     <footer class="footer">每次完成学习后勾选当天任务；进度仅保存在当前浏览器。</footer>
   </main>
 
