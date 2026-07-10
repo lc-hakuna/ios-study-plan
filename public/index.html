@@ -1,1187 +1,264 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<title>Ios Interview Study Plan</title>
-<style>:root{color-scheme:light dark;background:light-dark(rgb(255 255 255), rgb(24 24 24))}html,body{margin:0}body{box-sizing:border-box;padding:1rem;background:inherit}iframe{display:block;width:100%;max-width:736px;height:calc(100vh - 2rem);margin:0 auto;border:0}</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>iOS 面试学习计划</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --background: Canvas;
+      --foreground: CanvasText;
+      --card: color-mix(in srgb, var(--foreground) 4%, var(--background));
+      --card-strong: color-mix(in srgb, var(--foreground) 7%, var(--background));
+      --muted: color-mix(in srgb, var(--foreground) 58%, var(--background));
+      --border: color-mix(in srgb, var(--foreground) 13%, transparent);
+      --accent: AccentColor;
+      --accent-foreground: AccentColorText;
+      --accent-soft: color-mix(in srgb, var(--accent) 13%, var(--background));
+      --shadow: color-mix(in srgb, var(--foreground) 9%, transparent);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--foreground);
+      background:
+        radial-gradient(circle at 12% 0%, var(--accent-soft), transparent 29rem),
+        linear-gradient(135deg, color-mix(in srgb, var(--background) 95%, var(--accent-soft)), var(--background) 48%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    .page { width: min(1100px, calc(100% - 32px)); margin: 0 auto; padding: 42px 0 68px; }
+    .eyebrow { margin: 0 0 12px; color: var(--muted); font-size: 0.82rem; letter-spacing: 0.13em; text-transform: uppercase; }
+    h1, h2, h3, p { margin: 0; }
+    h1 { max-width: 13ch; font-size: clamp(2.3rem, 6vw, 4.6rem); font-weight: 500; letter-spacing: -0.06em; line-height: 0.98; }
+    h2 { font-size: clamp(1.55rem, 3vw, 2.1rem); font-weight: 500; letter-spacing: -0.04em; }
+    h3 { font-size: 1rem; font-weight: 500; }
+    .muted { color: var(--muted); }
+
+    .hero { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(270px, 0.7fr); gap: 28px; align-items: end; margin-bottom: 36px; }
+    .hero-copy { display: grid; gap: 18px; }
+    .lede { max-width: 43rem; color: var(--muted); font-size: 1.05rem; line-height: 1.75; }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill { display: inline-flex; align-items: center; min-height: 30px; padding: 0 10px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); font-size: 0.86rem; }
+    .pill.primary { border-color: color-mix(in srgb, var(--accent) 30%, var(--border)); background: var(--accent-soft); color: var(--foreground); }
+
+    .progress-card { padding: 22px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); box-shadow: 0 18px 44px var(--shadow); }
+    .progress-top { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+    .progress-number { font-size: 1.8rem; font-weight: 500; letter-spacing: -0.06em; }
+    .progress-track { height: 9px; overflow: hidden; border-radius: 999px; background: color-mix(in srgb, var(--foreground) 9%, transparent); }
+    .progress-fill { width: 0%; height: 100%; border-radius: inherit; background: var(--accent); transition: width 180ms ease; }
+    .progress-foot { display: flex; justify-content: space-between; gap: 8px; margin-top: 12px; color: var(--muted); font-size: 0.86rem; }
+
+    .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 28px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+    .tab { min-height: 38px; padding: 0 13px; border: 1px solid transparent; border-radius: 999px; color: var(--muted); background: transparent; }
+    .tab[aria-selected="true"] { border-color: color-mix(in srgb, var(--accent) 32%, var(--border)); color: var(--foreground); background: var(--accent-soft); }
+    .panel[hidden] { display: none; }
+
+    .section-intro { display: flex; justify-content: space-between; gap: 20px; align-items: end; margin-bottom: 22px; }
+    .section-intro p { max-width: 38rem; color: var(--muted); line-height: 1.65; }
+    .week { margin: 0 0 38px; }
+    .week-header { display: flex; align-items: end; justify-content: space-between; gap: 18px; padding-bottom: 14px; border-bottom: 2px solid var(--foreground); }
+    .week-label { margin: 0 0 5px; color: var(--muted); font-size: 0.84rem; }
+    .week-count { color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .day-list { margin: 0; padding: 0; list-style: none; }
+    .day { display: grid; grid-template-columns: 38px minmax(145px, 0.8fr) minmax(180px, 1fr) minmax(210px, 1.3fr); gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--border); }
+    .day:last-child { border-bottom: 0; }
+    .day-check { display: grid; place-items: start center; padding-top: 2px; }
+    .day-check input { width: 19px; height: 19px; accent-color: var(--accent); }
+    .day-heading { display: grid; gap: 5px; }
+    .day-index { color: var(--muted); font-size: 0.82rem; }
+    .day-focus { line-height: 1.45; }
+    .day-video { line-height: 1.55; }
+    .day-output { color: var(--muted); line-height: 1.6; }
+    .day.completed .day-heading, .day.completed .day-video { opacity: 0.48; }
+    .day.completed .day-focus { text-decoration: line-through; text-decoration-color: var(--muted); }
+
+    .roadmap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; border: 1px solid var(--border); background: var(--border); border-radius: var(--radius); overflow: hidden; }
+    .roadmap-item { min-height: 190px; padding: 20px; background: var(--background); }
+    .roadmap-item:nth-child(3n + 1) { background: var(--accent-soft); }
+    .roadmap-week { display: block; margin-bottom: 34px; color: var(--muted); font-size: 0.82rem; }
+    .roadmap-item h3 { margin-bottom: 9px; }
+    .roadmap-item p { color: var(--muted); line-height: 1.55; }
+
+    .review-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .review-card { padding: 20px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); }
+    .review-card h3 { margin-bottom: 12px; }
+    .review-card p, .review-card li { color: var(--muted); line-height: 1.65; }
+    .review-card ul { margin: 0; padding-left: 1.15rem; }
+    .review-card li + li { margin-top: 6px; }
+    .priority-list { display: grid; gap: 0; margin-top: 22px; border-top: 1px solid var(--border); }
+    .priority { display: grid; grid-template-columns: 110px 1.1fr 1fr; gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--border); }
+    .priority strong { font-weight: 500; }
+    .priority p { color: var(--muted); line-height: 1.6; }
+    .footer { margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.86rem; }
+
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr; }
+      .day { grid-template-columns: 34px minmax(0, 1fr); gap: 8px 12px; }
+      .day-heading, .day-video, .day-output { grid-column: 2; }
+      .day-output { margin-top: 4px; }
+      .roadmap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .review-grid { grid-template-columns: 1fr; }
+      .priority { grid-template-columns: 92px 1fr; }
+      .priority p:last-child { grid-column: 2; }
+    }
+
+    @media (max-width: 520px) {
+      .page { width: min(100% - 24px, 1100px); padding-top: 26px; }
+      .section-intro, .week-header { display: grid; gap: 9px; align-items: start; }
+      .roadmap { grid-template-columns: 1fr; }
+      .roadmap-item { min-height: auto; }
+      .priority { grid-template-columns: 1fr; gap: 6px; }
+      .priority p:last-child { grid-column: auto; }
+    }
+  </style>
 </head>
 <body>
-<iframe sandbox="allow-scripts" referrerpolicy="no-referrer" title="Ios Interview Study Plan" srcdoc="&lt;!doctype html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-&lt;meta charset=&quot;utf-8&quot;&gt;
-&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
-&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
-&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#x27;none&#x27;; script-src &#x27;unsafe-inline&#x27; &#x27;unsafe-eval&#x27; &#x27;wasm-unsafe-eval&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src &#x27;unsafe-inline&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;&quot;&gt;
-&lt;title&gt;Ios Interview Study Plan&lt;/title&gt;
-&lt;style&gt;:root {
-  color-scheme: light dark;
-  background-color: var(--background) !important;
-
-  /* Agent-facing contract; keep in sync with SKILL.md. */
-  --background: light-dark(rgb(255 255 255), rgb(24 24 24));
-  --foreground: light-dark(rgb(26 28 31), rgb(255 255 255));
-  --card: color-mix(in oklab, var(--foreground) 5%, transparent);
-  --card-foreground: var(--foreground);
-  --popover: light-dark(rgb(255 255 255), rgb(45 45 45));
-  --popover-foreground: var(--foreground);
-  --primary: light-dark(rgb(51 156 255), rgb(131 195 255));
-  --primary-foreground: light-dark(rgb(255 255 255), rgb(13 13 13));
-  --secondary: light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%));
-  --secondary-foreground: var(--foreground);
-  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
-  --muted-foreground: light-dark(
-    rgb(26 28 31 / 49.4%),
-    rgb(255 255 255 / 49.8%)
-  );
-  --accent: light-dark(rgb(229 242 255), rgb(13 39 63));
-  --accent-foreground: var(--primary);
-  --destructive: light-dark(rgb(226 85 7), rgb(255 133 73));
-  --border: light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%));
-  --input: light-dark(
-    rgb(26 28 31 / 11.8%),
-    color-mix(in oklab, rgb(0 0 0) 10%, transparent)
-  );
-  --ring: light-dark(rgb(51 156 255), rgb(131 195 255 / 76%));
-  --font-size-base: 14px;
-  --viz-series-1: var(--primary);
-  --viz-series-2: light-dark(rgb(243 136 59), rgb(245 154 86));
-  --viz-series-3: light-dark(rgb(93 201 119), rgb(116 213 139));
-  --viz-series-4: light-dark(rgb(235 119 177), rgb(240 143 192));
-  --viz-series-5: light-dark(rgb(155 121 236), rgb(170 145 239));
-  --viz-series-6: light-dark(rgb(58 185 177), rgb(90 203 194));
-
-  /* Internal implementation variables; not part of the agent contract. */
-  --font-sans: -apple-system, system-ui, &quot;Segoe UI&quot;, sans-serif;
-  --font-mono:
-    ui-monospace, SFMono-Regular, &quot;SF Mono&quot;, Menlo, Consolas, &quot;Liberation Mono&quot;,
-    monospace;
-  --font-size-normal: max(11px, var(--font-size-base));
-  --font-size-tooltip: calc(var(--font-size-base) - 1px);
-  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
-  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
-  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
-  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
-  --font-weight-normal: 430;
-  --font-weight-medium: 500;
-  --line-height-normal: calc(var(--font-size-normal) * 1.5);
-  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
-  --line-height-small: calc(var(--font-size-small) + 4px);
-  --radius: 12.5px;
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-2xl: calc(var(--radius) * 1.6);
-  --radius-full: 9999px;
-  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
-  --checkmark-image: url(&quot;data:image/svg+xml,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; viewBox=&#x27;0 0 17 17&#x27;%3E%3Cpath d=&#x27;M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z&#x27;/%3E%3C/svg%3E&quot;);
-
-  /* Legacy aliases; not part of the current agent contract. */
-  --viz-bg: transparent;
-  --viz-panel: var(--card);
-  --viz-border: var(--border);
-  --viz-text: var(--foreground);
-  --viz-muted: var(--muted-foreground);
-  --viz-accent: var(--primary);
-  --viz-accent-text: var(--primary-foreground);
-  --viz-accent-bg: var(--accent);
-  --viz-font-size: var(--font-size-base);
-  --viz-warning: var(--destructive);
-  --color-background-primary: var(--background);
-  --color-text-primary: var(--foreground);
-  --color-border-secondary: var(--border);
-}
-
-:root[data-theme=&quot;light&quot;] {
-  color-scheme: light;
-}
-
-:root[data-theme=&quot;dark&quot;] {
-  color-scheme: dark;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html &gt; body {
-  margin: 0;
-  padding: 5px;
-  color: var(--foreground);
-  background: transparent !important;
-  font-family: var(--font-sans);
-  font-size: var(--font-size-normal);
-  font-weight: var(--font-weight-normal);
-  line-height: var(--line-height-normal);
-}
-
-a {
-  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
-  cursor: pointer;
-  font-weight: var(--viz-font-weight-medium);
-  text-decoration: none;
-  text-underline-offset: 2px;
-}
-
-a:is(:hover, :focus-visible) {
-  text-decoration-line: underline;
-  text-decoration-style: dashed;
-  text-decoration-thickness: 0.5px;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  margin-block: 0;
-}
-
-h1 {
-  font-size: var(--font-size-h1);
-  font-weight: var(--font-weight-medium);
-  line-height: 1.25;
-}
-
-h2 {
-  font-size: var(--font-size-h2);
-  font-weight: var(--font-weight-medium);
-  line-height: 1.25;
-}
-
-h3,
-h4,
-h5,
-h6 {
-  font-size: var(--font-size-h3);
-  font-weight: var(--font-weight-medium);
-  line-height: 1.3;
-}
-
-b,
-strong,
-th {
-  font-weight: var(--font-weight-medium);
-}
-
-code:not(pre code) {
-  display: inline;
-  padding: 1px 6px;
-  border-radius: var(--radius-sm);
-  corner-shape: superellipse(1.5);
-  background: var(--muted);
-  font-family: var(--font-mono);
-  font-size: 0.92em;
-  overflow-wrap: anywhere;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-  word-break: break-word;
-}
-
-#widget {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-  padding: 0;
-  background: transparent !important;
-}
-
-.card {
-  min-width: 0;
-  padding: 12px;
-  overflow: hidden;
-  overflow-wrap: break-word;
-  border-radius: var(--radius-2xl);
-  corner-shape: superellipse(1.5);
-  color: var(--card-foreground);
-  background: var(--card);
-}
-
-#widget &gt; :not(.card) {
-  width: 100% !important;
-  max-width: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-.tooltip {
-  position: fixed;
-  z-index: 50;
-  top: 0;
-  left: 0;
-  width: max-content;
-  max-width: min(
-    20rem,
-    var(--tooltip-available-width, calc(100vw - 10px)),
-    calc(100vw - 10px)
-  );
-  max-height: min(
-    var(--tooltip-available-height, calc(100vh - 10px)),
-    calc(100vh - 10px)
-  );
-  padding: 4px 8px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  corner-shape: superellipse(1.5);
-  color: var(--popover-foreground);
-  background: var(--popover);
-  box-shadow: none;
-  font-size: var(--font-size-tooltip);
-  line-height: var(--line-height-tooltip);
-  overflow-wrap: break-word;
-  white-space: normal;
-  pointer-events: none;
-  user-select: none;
-}
-
-.viz-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
-  gap: 10px;
-}
-
-.viz-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.viz-stat-value {
-  font-size: var(--font-size-h2);
-  font-weight: var(--font-weight-medium);
-  line-height: 1.25;
-}
-
-.viz-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-}
-
-.viz-badge {
-  padding: 3px 8px;
-  border-radius: var(--radius-full);
-  color: var(--accent-foreground);
-  background: var(--accent);
-  font-weight: var(--font-weight-medium);
-}
-
-small,
-.text-small,
-.viz-badge {
-  font-size: var(--font-size-small);
-  line-height: var(--line-height-small);
-}
-
-.text-muted {
-  color: var(--muted-foreground);
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.viz-controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-}
-
-.viz-controls &gt; .form-label {
-  display: grid;
-  min-width: min(100%, 260px);
-  flex: 1 1 280px;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: baseline;
-  gap: 2px 12px;
-  margin-bottom: 0;
-}
-
-.viz-controls &gt; .form-label &gt; :is(.form-control, .form-range, .form-select) {
-  grid-column: 1 / -1;
-}
-
-.btn,
-.form-check-input,
-.form-control,
-.form-range,
-.form-select {
-  font: inherit;
-}
-
-.btn {
-  appearance: button;
-  display: inline-flex;
-  inline-size: fit-content;
-  max-inline-size: 100%;
-  min-height: 28px;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  margin: 0;
-  padding: 0 8px;
-  -webkit-app-region: no-drag;
-  border: 1px solid var(--input);
-  border-radius: var(--radius-lg);
-  corner-shape: superellipse(1.5);
-  color: var(--secondary-foreground);
-  background: var(--secondary);
-  cursor: var(--cursor-interaction, pointer);
-  text-align: center;
-  text-decoration: none;
-  white-space: nowrap;
-  user-select: none;
-  -webkit-font-smoothing: antialiased;
-}
-
-.btn:is(.btn-block, .viz-tile) {
-  inline-size: 100%;
-}
-
-.btn.viz-tile {
-  min-width: 0;
-  overflow-wrap: anywhere;
-  white-space: normal;
-}
-
-a.btn {
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.btn:not(:disabled):hover {
-  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
-}
-
-.btn-primary {
-  border-color: transparent;
-  color: var(--primary-foreground);
-  background: var(--foreground);
-  background-clip: padding-box;
-}
-
-.btn-primary .text-muted {
-  color: color-mix(in srgb, var(--primary-foreground) 50%, transparent);
-}
-
-.btn-primary:not(:disabled):hover {
-  background: color-mix(in srgb, var(--foreground) 80%, transparent);
-  background-clip: padding-box;
-}
-
-.btn-ghost {
-  border-color: transparent;
-  color: var(--muted-foreground);
-  background: transparent;
-}
-
-.btn-ghost:not(:disabled):hover {
-  color: var(--foreground);
-  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
-}
-
-.btn:disabled {
-  cursor: not-allowed;
-  opacity: 0.4;
-}
-
-[data-lucide] {
-  stroke-width: 1.6;
-}
-
-.form-label {
-  display: block;
-  margin-bottom: 6px;
-  color: var(--foreground);
-}
-
-.form-control {
-  display: block;
-  width: 100%;
-  min-height: 28px;
-  padding: 0 8px;
-  outline: none;
-  border: 1px solid var(--input);
-  border-radius: var(--radius-lg);
-  corner-shape: superellipse(1.5);
-  color: var(--foreground);
-  background: var(--secondary);
-}
-
-.form-control::placeholder {
-  color: var(--muted-foreground);
-}
-
-.form-control[type=&quot;file&quot;] {
-  padding: 0;
-  overflow: hidden;
-  cursor: var(--cursor-interaction, pointer);
-}
-
-.form-control[type=&quot;file&quot;]::file-selector-button {
-  min-height: 26px;
-  margin-right: 8px;
-  padding: 0 8px;
-  border: 0;
-  border-right: 1px solid var(--input);
-  color: var(--secondary-foreground);
-  background: var(--secondary);
-  cursor: inherit;
-  font: inherit;
-}
-
-.form-control[type=&quot;file&quot;]:not(:disabled):hover::file-selector-button {
-  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
-}
-
-.form-control-color[type=&quot;color&quot;] {
-  width: 40px;
-  height: 28px;
-  padding: 3px;
-  cursor: var(--cursor-interaction, pointer);
-}
-
-.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch-wrapper {
-  padding: 0;
-}
-
-.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch {
-  border: 0;
-  border-radius: calc(var(--radius-lg) - 4px);
-  corner-shape: superellipse(1.5);
-}
-
-textarea.form-control {
-  height: auto;
-  min-height: 72px;
-  padding: 8px 10px;
-  resize: vertical;
-}
-
-.form-control:focus-visible {
-  border-color: var(--ring);
-  box-shadow: inset 0 0 0 1px var(--ring);
-}
-
-.form-control:disabled,
-.form-select:disabled {
-  cursor: not-allowed;
-  opacity: 0.4;
-}
-
-.form-select {
-  appearance: none;
-  display: block;
-  width: 100%;
-  min-height: 28px;
-  margin: 0;
-  padding: 0 32px 0 8px;
-  outline: none;
-  border: 1px solid var(--input);
-  border-radius: var(--radius-lg);
-  corner-shape: superellipse(1.5);
-  color: var(--foreground);
-  background-color: var(--secondary);
-  background-image:
-    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
-    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
-  background-position:
-    calc(100% - 14px) 50%,
-    calc(100% - 10px) 50%;
-  background-repeat: no-repeat;
-  background-size: 4px 4px;
-  cursor: var(--cursor-interaction, default);
-}
-
-.form-select:not(:disabled):hover {
-  background-color: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
-}
-
-.form-select:focus-visible {
-  border-color: var(--ring);
-  box-shadow: inset 0 0 0 1px var(--ring);
-}
-
-.form-check {
-  display: flex;
-  min-height: 20px;
-  align-items: center;
-  gap: 6px;
-}
-
-.form-check-input {
-  appearance: none;
-  width: 14px;
-  height: 14px;
-  flex: 0 0 auto;
-  margin: 0;
-  border: 1px solid var(--input);
-  color: var(--primary-foreground);
-  background-color: transparent;
-  cursor: var(--cursor-interaction, default);
-  transition:
-    background-color 150ms,
-    border-color 150ms,
-    box-shadow 150ms;
-}
-
-.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;] {
-  border-color: var(--input);
-  border-radius: var(--radius-sm);
-  corner-shape: superellipse(1.5);
-  background-color: var(--secondary);
-  box-shadow: var(--shadow-sm);
-}
-
-.form-check:not(.form-switch)
-  .form-check-input:not(:disabled):not(:checked):hover {
-  background-color: var(--card);
-}
-
-.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;]:checked {
-  border-color: var(--primary);
-  background-color: var(--primary);
-}
-
-.form-check:not(.form-switch)
-  .form-check-input[type=&quot;checkbox&quot;]:checked::before {
-  display: block;
-  width: 100%;
-  height: 100%;
-  background: var(--primary-foreground);
-  content: &quot;&quot;;
-  mask: var(--checkmark-image) center / 12px 12px no-repeat;
-}
-
-.form-check-input[type=&quot;radio&quot;] {
-  width: 14px;
-  height: 14px;
-  border-radius: var(--radius-full);
-}
-
-.form-check-input[type=&quot;radio&quot;]:checked {
-  border: 2px solid var(--primary);
-  background:
-    radial-gradient(circle, var(--primary-foreground) 0 2.5px, transparent 3px),
-    var(--primary);
-}
-
-.form-check:not(.form-switch) .form-check-input:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
-}
-
-.form-check:not(.form-switch) .form-check-input:disabled {
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
-  cursor: not-allowed;
-}
-
-.form-switch .form-check-input:disabled,
-.form-switch .form-check-input:disabled + .form-check-label {
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-.form-check-label {
-  color: var(--foreground);
-  cursor: var(--cursor-interaction, default);
-}
-
-.form-switch .form-check-input {
-  position: relative;
-  width: 32px;
-  height: 20px;
-  border: 0;
-  border-radius: var(--radius-full);
-  background: var(--muted);
-  box-shadow: none;
-  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.form-switch .form-check-input::before {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 16px;
-  height: 16px;
-  box-sizing: border-box;
-  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
-  border-radius: var(--radius-full);
-  background: light-dark(var(--primary-foreground), var(--foreground));
-  box-shadow: var(--shadow-sm);
-  content: &quot;&quot;;
-  transform: translate(2px, -50%);
-  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.form-switch .form-check-input:checked {
-  background: var(--primary);
-}
-
-.form-switch .form-check-input:checked::before {
-  transform: translate(14px, -50%);
-}
-
-.form-switch .form-check-input:focus-visible {
-  box-shadow: 0 0 0 2px var(--ring);
-}
-
-.form-range {
-  appearance: none;
-  display: block;
-  width: 100%;
-  height: 28px;
-  flex: 1;
-  margin: 0;
-  padding: 0;
-  outline: none;
-  border: 0;
-  accent-color: var(--primary);
-  background: linear-gradient(
-      color-mix(in srgb, var(--foreground) 7%, transparent),
-      color-mix(in srgb, var(--foreground) 7%, transparent)
-    )
-    center / 100% 2px no-repeat;
-}
-
-.form-range::-webkit-slider-runnable-track {
-  height: 28px;
-  background: transparent;
-}
-
-.form-range::-webkit-slider-thumb {
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  margin-top: 4px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-full);
-  background: light-dark(var(--primary-foreground), var(--foreground));
-}
-
-.form-range:focus-visible::-webkit-slider-thumb {
-  border-color: var(--ring);
-  box-shadow: inset 0 0 0 1px var(--ring);
-}
-
-.form-range::-moz-range-track {
-  height: 28px;
-  background: transparent;
-}
-
-.form-range::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-full);
-  background: light-dark(var(--primary-foreground), var(--foreground));
-}
-
-.form-range:focus-visible::-moz-range-thumb {
-  border-color: var(--ring);
-  box-shadow: inset 0 0 0 1px var(--ring);
-}
-
-.form-range:disabled {
-  cursor: not-allowed;
-  opacity: 0.4;
-}
-
-.btn:not(.btn-primary, .viz-tile):is(
-    [aria-pressed=&quot;true&quot;],
-    [aria-selected=&quot;true&quot;],
-    .is-selected
-  ) {
-  border-color: var(--primary);
-  color: var(--primary-foreground);
-  background: var(--primary);
-}
-
-.btn.viz-tile:is([aria-pressed=&quot;true&quot;], [aria-selected=&quot;true&quot;], .is-selected) {
-  border-color: var(--primary);
-  box-shadow: inset 0 0 0 1px var(--primary);
-}
-
-.btn:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
-}
-
-svg {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
-#widget &gt; svg {
-  width: 100%;
-}
-
-.text-warning,
-.text-destructive {
-  color: var(--destructive);
-}
-
-html&gt;body{padding:0}&lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;div id=&quot;ios-study-plan&quot;&gt;
-  &lt;style&gt;
-    #ios-study-plan { color: var(--foreground); }
-    #ios-study-plan .plan-header { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; margin-bottom:20px; }
-    #ios-study-plan .plan-header h2 { margin:0 0 4px; }
-    #ios-study-plan .plan-tabs { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 18px; }
-    #ios-study-plan .tab-panel[hidden] { display:none; }
-    #ios-study-plan .week { margin:0 0 22px; }
-    #ios-study-plan .week-heading { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin:0 0 10px; }
-    #ios-study-plan .week-heading h3 { margin:0; }
-    #ios-study-plan .day-list { display:grid; gap:8px; }
-    #ios-study-plan .day { display:grid; grid-template-columns:auto minmax(92px, 0.7fr) minmax(150px, 1.3fr) minmax(175px, 1.6fr); gap:12px; align-items:start; padding:10px 0; border-bottom:1px solid var(--border); }
-    #ios-study-plan .day:last-child { border-bottom:0; }
-    #ios-study-plan .day-title { font-weight:500; }
-    #ios-study-plan .day-focus { color:var(--muted-foreground); }
-    #ios-study-plan .video { color:var(--foreground); }
-    #ios-study-plan .deliverable { color:var(--muted-foreground); }
-    #ios-study-plan .section-title { margin:0 0 12px; }
-    #ios-study-plan .note-grid { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:12px; margin:0 0 18px; }
-    #ios-study-plan .note-grid .card { padding:14px; }
-    #ios-study-plan .note-grid h3 { margin:0 0 6px; }
-    #ios-study-plan .note-grid p { margin:0; }
-    #ios-study-plan .priority-table { width:100%; border-collapse:collapse; }
-    #ios-study-plan .priority-table th, #ios-study-plan .priority-table td { padding:10px 8px; text-align:left; vertical-align:top; border-bottom:1px solid var(--border); }
-    #ios-study-plan .priority-table th { font-weight:500; }
-    #ios-study-plan .progress-wrap { min-width:180px; }
-    #ios-study-plan progress { width:100%; accent-color:var(--primary); }
-    #ios-study-plan .meta { margin:0; }
-    #ios-study-plan .week-meta { white-space:nowrap; }
-    #ios-study-plan .week-actions { display:flex; gap:8px; align-items:center; }
-    #ios-study-plan .check { margin-top:3px; }
-    @media (max-width:650px) {
-      #ios-study-plan .plan-header { display:block; }
-      #ios-study-plan .progress-wrap { margin-top:12px; }
-      #ios-study-plan .note-grid { grid-template-columns:1fr; }
-      #ios-study-plan .day { grid-template-columns:auto 1fr; gap:6px 10px; }
-      #ios-study-plan .day-title { grid-column:2; }
-      #ios-study-plan .day-focus, #ios-study-plan .video, #ios-study-plan .deliverable { grid-column:2; }
-      #ios-study-plan .priority-table { font-size:0.9em; }
-      #ios-study-plan .priority-table th:nth-child(3), #ios-study-plan .priority-table td:nth-child(3) { display:none; }
-    }
-  &lt;/style&gt;
-
-  &lt;div class=&quot;plan-header&quot;&gt;
-    &lt;div&gt;
-      &lt;h2&gt;iOS 面试恢复计划&lt;/h2&gt;
-      &lt;p class=&quot;meta text-muted&quot;&gt;8 周主计划 · 前两周已嵌入你的 28 节原理视频&lt;/p&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;progress-wrap&quot;&gt;
-      &lt;label class=&quot;form-label&quot; for=&quot;overall-progress&quot;&gt;整体进度 &lt;span id=&quot;progress-label&quot;&gt;0 / 0&lt;/span&gt;&lt;/label&gt;
-      &lt;progress id=&quot;overall-progress&quot; value=&quot;0&quot; max=&quot;1&quot;&gt;0%&lt;/progress&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-
-  &lt;div class=&quot;plan-tabs&quot; role=&quot;tablist&quot; aria-label=&quot;学习计划视图&quot;&gt;
-    &lt;button class=&quot;btn btn-primary&quot; type=&quot;button&quot; role=&quot;tab&quot; aria-selected=&quot;true&quot; aria-controls=&quot;daily-panel&quot; id=&quot;daily-tab&quot;&gt;前两周逐日安排&lt;/button&gt;
-    &lt;button class=&quot;btn&quot; type=&quot;button&quot; role=&quot;tab&quot; aria-selected=&quot;false&quot; aria-controls=&quot;roadmap-panel&quot; id=&quot;roadmap-tab&quot;&gt;8 周路线图&lt;/button&gt;
-    &lt;button class=&quot;btn&quot; type=&quot;button&quot; role=&quot;tab&quot; aria-selected=&quot;false&quot; aria-controls=&quot;review-panel&quot; id=&quot;review-tab&quot;&gt;复习与面试清单&lt;/button&gt;
-  &lt;/div&gt;
-
-  &lt;section id=&quot;daily-panel&quot; class=&quot;tab-panel&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;daily-tab&quot;&gt;
-    &lt;div class=&quot;note-grid&quot;&gt;
-      &lt;div class=&quot;card&quot;&gt;
-        &lt;h3&gt;每天的节奏&lt;/h3&gt;
-        &lt;p class=&quot;text-muted&quot;&gt;视频 1.5–2 小时；Demo/笔记 1 小时；算法 1 小时；脱稿复述 20 分钟。&lt;/p&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;card&quot;&gt;
-        &lt;h3&gt;学习目标&lt;/h3&gt;
-        &lt;p class=&quot;text-muted&quot;&gt;每个主题都能讲出：概念、底层机制、典型坑、项目处理方式。&lt;/p&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;card&quot;&gt;
-        &lt;h3&gt;第 3 周起&lt;/h3&gt;
-        &lt;p class=&quot;text-muted&quot;&gt;开始投递；用真实面试反馈决定接下来补什么。&lt;/p&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-
-    &lt;div class=&quot;week&quot; data-week=&quot;1&quot;&gt;
-      &lt;div class=&quot;week-heading&quot;&gt;
-        &lt;h3&gt;第 1 周：对象、内存与消息机制&lt;/h3&gt;
-        &lt;span class=&quot;week-meta text-muted&quot; data-week-progress=&quot;1&quot;&gt;0 / 6&lt;/span&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;day-list&quot;&gt;
-        &lt;label class=&quot;day&quot;&gt;&lt;input class=&quot;form-check-input check&quot; type=&quot;checkbox&quot; data-id=&quot;d1&quot;&gt;&lt;span class=&quot;day-title&quot;&gt;第 1 天&lt;/span&gt;&lt;span class=&quot;day-focus&quot;&gt;对象模型、Runtime 入门&lt;/span&gt;&lt;span class=&quot;video&quot;&gt;视频 1：源码探索方式&lt;br&gt;视频 7：isa 与类关联&lt;/span&gt;&lt;span class=&quot;deliverable&quot;&gt;画出对象、类对象、元类关系；脱稿说明 isa 的作用。&lt;/span&gt;&lt;/label&gt;
-        &lt;label class=&quot;day&quot;&gt;&lt;input class=&quot;form-check-input check&quot; type=&quot;checkbox&quot; data-id=&quot;d2&quot;&gt;&lt;span class=&quot;day-title&quot;&gt;第 2 天&lt;/span&gt;&lt;span class=&quot;day-focus&quot;&gt;对象创建&lt;/span&gt;&lt;span class=&quot;video&quot;&gt;视频 2：alloc/init/new&lt;br&gt;视频 4：NSObject alloc&lt;/span&gt;&lt;span class=&quot;deliverable&quot;&gt;说明 alloc、init、new 的区别；写最小对象创建 Demo。&lt;/span&gt;&lt;/label&gt;
-        &lt;label class=&quot;day&quot;&gt;&lt;input class=&quot;form-check-input check&quot; type=&quot;checkbox&quot; data-id=&quot;d3&quot;&gt;&lt;span class=&quot;day-title&quot;&gt;第 3 天&lt;/span&gt;&lt;span class=&quot;day-focus&quot;&gt;内存对齐与对象大小&lt;/span&gt;&lt;span class=&quot;video&quot;&gt;视频 5：内存对齐&lt;br&gt;视频 6：malloc 源码分析&lt;/span&gt;&lt;span class=&quot;deliverable&quot;&gt;计算对象大小；说明 instance size 和实际分配大小可能不同的原因。&lt;/span&gt;&lt;/label&gt;
-        &lt;label class=&quot;day&quot;&gt;&lt;input class=&quot;form-check-input check&quot; type=&quot;checkbox&quot; data-id=&quot;d4&quot;&gt;&lt;span class=&quot;day-title&quot;&gt;第 4 天&lt;/span&gt;&lt;span class=&quot;day-focus&quot;&gt;类本质、成员变量&lt;/span&gt;&lt;span class=&quot;video&quot;&gt;视频 8：类的本质&lt;br&gt;视频 18–19：类底层结构&lt;/span&gt;&lt;span class=&quot;deliverable&quot;&gt;讲清 ivar、property、method；理解继承链上的成员变量查找。&lt;/span&gt;&lt;/label&gt;
-        &lt;label class=&quot;day&quot;&gt;&lt;input class=&quot;form-check-input check&quot; type=&quot;checkbox&quot; data-id=&quot;d5&quot;&gt;&lt;span class=&quot;day-title&quot;&gt;第 5 天&lt;/span&gt;&lt;span class=&quot;day-focus&quot;&gt;内存管理与弱引用&lt;/span&gt;&lt;span class=&quot;video&quot;&gt;视频 10：strong/weak&lt;br&gt;视频 20：引用计数、循环引用、弱引用&lt;/span&gt;&lt;span class=&quot;deliverable&quot;&gt;写 Block、Timer、Delegate 三类循环引用；用 Instruments 找一次泄漏。&lt;/span&gt;&lt;/label&gt;
-        &lt;label class=&quot;day&quot;&gt;&lt;input class=&quot;form-check-input check&quot; type=&quot;checkbox&quot; data-id=&quot;d6&quot;&gt;&lt;span class=&quot;day-title&quot;&gt;第 6 天&lt;/span&gt;&lt;span class=&quot;day-focus&quot;&gt;方法查找与缓存&lt;/span&gt;&lt;span class=&quot;video&quot;&gt;视频 11：cache_t&lt;br&gt;视频 12：objc_msgSend 快速查找&lt;/span&gt;&lt;span class=&quot;deliverable&quot;&gt;复述消息发送的缓存命中路径；整理本周 20 个问答卡片。&lt;/span&gt;&lt;/label&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-
-    &lt;div class=&quot;week&quot; data-week=&quot;2&quot;&gt;
-      &lt;div class=&quot;week-heading&quot;&gt;
-        &lt;h3&gt;第 2 周：转发、并发、UI 与工程基础&lt;/h3&gt;
-        &lt;span class=&quot;week-meta text-muted&quot; data-week-progress=&quot;2&quot;&gt;0 / 8&lt;/span&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;day-list&quot;&gt;
-        &lt;label class=&quot;day&quot;&gt;&lt;input class=&quot;form-check-input check&quot; type=&quot;checkbox&quot; data-id=&quot;d7&quot;&gt;&lt;span class=&quot;day-title&quot;&gt;第 7 天&lt;/span&gt;&lt;span class=&quot;day-focus&quot;&gt;慢速查找、消息转发&lt;/span&gt;&lt;span class=&quot;video&quot;&gt;视频 13：慢速查找&lt;br&gt;视频 14：消息转发&lt;/span&gt;&lt;span class=&quot;deliverable&quot;&gt;讲清动态方法解析、快速转发、完整消息转发三阶段。&lt;/span&gt;&lt;/label&gt;
-        &lt;label class=&quot;day&quot;&gt;&lt;input class=&quot;form-check-input check&quot; type=&quot;checkbox&quot; data-id=&quot;d8&quot;&gt;&lt;span class=&quot;day-title&quot;&gt;第 8 天&lt;/span&gt;&lt;span class=&quot;day-focus&quot;&gt;加载、初始化、元类&lt;/span&gt;&lt;span class=&quot;video&quot;&gt;视频 15：类加载与初始化&lt;br&gt;视频 16–17：isa 走位与继承&lt;/span&gt;&lt;span class=&quot;deliverable&quot;&gt;准确区分 +load 和 +initialize；画出根类、根元类关系。&lt;/span&gt;&lt;/label&gt;
-        &lt;label class=&quot;day&quot;&gt;&lt;input class=&quot;form-check-input check&quot; type=&quot;checkbox&quot; data-id=&quot;d9&quot;&gt;&lt;span class=&quot;day-title&quot;&gt;第 9 天&lt;/span&gt;&lt;span class=&quot;day-focus&quot;&gt;GCD 与线程安全&lt;/span&gt;&lt;span class=&quot;video&quot;&gt;视频 21–22：GCD 底层&lt;/span&gt;&lt;span class=&quot;deliverable&quot;&gt;写出主队列死锁例子；说明 sync/async、串行/并发、barrier。&lt;/span&gt;&lt;/label&gt;
-        &lt;label class=&quot;day&quot;&gt;&lt;input class=&quot;form-check-input check&quot; type=&quot;checkbox&quot; data-id=&quot;d10&quot;&gt;&lt;span class=&quot;day-title&quot;&gt;第 10 天&lt;/span&gt;&lt;span class=&quot;day-focus&quot;&gt;并发问题与锁&lt;/span&gt;&lt;span class=&quot;video&quot;&gt;视频 23–24：线程安全、死锁&lt;/span&gt;&lt;span class=&quot;deliverable&quot;&gt;实现线程安全缓存；说明死锁形成条件及排查方式。&lt;/span&gt;&lt;/label&gt;
-        &lt;label class=&quot;day&quot;&gt;&lt;input class=&quot;form-check-input check&quot; type=&quot;checkbox&quot; data-id=&quot;d11&quot;&gt;&lt;span class=&quot;day-title&quot;&gt;第 11 天&lt;/span&gt;&lt;span class=&quot;day-focus&quot;&gt;渲染与性能&lt;/span&gt;&lt;span class=&quot;video&quot;&gt;视频 25：CPU/GPU、离屏渲染、卡顿&lt;/span&gt;&lt;span class=&quot;deliverable&quot;&gt;用 Instruments 记录一次卡顿定位；列出离屏渲染触发条件。&lt;/span&gt;&lt;/label&gt;
-        &lt;label class=&quot;day&quot;&gt;&lt;input class=&quot;form-check-input check&quot; type=&quot;checkbox&quot; data-id=&quot;d12&quot;&gt;&lt;span class=&quot;day-title&quot;&gt;第 12 天&lt;/span&gt;&lt;span class=&quot;day-focus&quot;&gt;事件与响应链&lt;/span&gt;&lt;span class=&quot;video&quot;&gt;视频 26：事件传递机制与响应者链&lt;/span&gt;&lt;span class=&quot;deliverable&quot;&gt;讲清 hit-test 流程；写一个扩大点击区域的 Demo。&lt;/span&gt;&lt;/label&gt;
-        &lt;label class=&quot;day&quot;&gt;&lt;input class=&quot;form-check-input check&quot; type=&quot;checkbox&quot; data-id=&quot;d13&quot;&gt;&lt;span class=&quot;day-title&quot;&gt;第 13 天&lt;/span&gt;&lt;span class=&quot;day-focus&quot;&gt;沙盒、持久化、安全&lt;/span&gt;&lt;span class=&quot;video&quot;&gt;视频 27：沙盒机制&lt;/span&gt;&lt;span class=&quot;deliverable&quot;&gt;区分 Documents、Library、tmp；选择 UserDefaults、Keychain、文件或数据库。&lt;/span&gt;&lt;/label&gt;
-        &lt;label class=&quot;day&quot;&gt;&lt;input class=&quot;form-check-input check&quot; type=&quot;checkbox&quot; data-id=&quot;d14&quot;&gt;&lt;span class=&quot;day-title&quot;&gt;第 14 天&lt;/span&gt;&lt;span class=&quot;day-focus&quot;&gt;架构与设计模式&lt;/span&gt;&lt;span class=&quot;video&quot;&gt;视频 28：MVC/MVP/MVVM 等&lt;/span&gt;&lt;span class=&quot;deliverable&quot;&gt;画展示项目的 MVVM + Coordinator 架构与模块边界。&lt;/span&gt;&lt;/label&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/section&gt;
-
-  &lt;section id=&quot;roadmap-panel&quot; class=&quot;tab-panel&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;roadmap-tab&quot; hidden&gt;
-    &lt;h3 class=&quot;section-title&quot;&gt;8 周路线图&lt;/h3&gt;
-    &lt;table class=&quot;priority-table&quot;&gt;
-      &lt;thead&gt;&lt;tr&gt;&lt;th&gt;周次&lt;/th&gt;&lt;th&gt;主线&lt;/th&gt;&lt;th&gt;完成标志&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;&lt;td&gt;第 1 周&lt;/td&gt;&lt;td&gt;OC 对象、Runtime、内存、Swift 核心&lt;/td&gt;&lt;td&gt;能回答对象模型、weak、循环引用、消息发送。&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;第 2 周&lt;/td&gt;&lt;td&gt;并发、RunLoop、UI、网络、持久化&lt;/td&gt;&lt;td&gt;能定位死锁、卡顿、泄漏；完成网络与缓存 Demo。&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;第 3 周&lt;/td&gt;&lt;td&gt;架构、组件化、展示项目启动&lt;/td&gt;&lt;td&gt;开始投递；完成项目模块划分和推荐流骨架。&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;第 4 周&lt;/td&gt;&lt;td&gt;性能、稳定性、测试、发布&lt;/td&gt;&lt;td&gt;项目有启动/卡顿/缓存设计与核心单测。&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;第 5 周&lt;/td&gt;&lt;td&gt;简历、项目表达、真实面试&lt;/td&gt;&lt;td&gt;准备 5 个项目故事；每天投递 10–15 个岗位。&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;第 6 周&lt;/td&gt;&lt;td&gt;专项方向&lt;/td&gt;&lt;td&gt;AI 应用客户端（推荐）或音视频 / IoT 三选一深入。&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;第 7 周&lt;/td&gt;&lt;td&gt;模拟面试与算法&lt;/td&gt;&lt;td&gt;完成高频算法 80–100 题；每日至少一轮模拟。&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;第 8 周&lt;/td&gt;&lt;td&gt;面试闭环&lt;/td&gt;&lt;td&gt;由真实 JD 与面试反馈驱动补缺，不再泛学。&lt;/td&gt;&lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/section&gt;
-
-  &lt;section id=&quot;review-panel&quot; class=&quot;tab-panel&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;review-tab&quot; hidden&gt;
-    &lt;h3 class=&quot;section-title&quot;&gt;优先级：先拿到面试，再深入源码&lt;/h3&gt;
-    &lt;table class=&quot;priority-table&quot;&gt;
-      &lt;thead&gt;&lt;tr&gt;&lt;th&gt;优先级&lt;/th&gt;&lt;th&gt;内容&lt;/th&gt;&lt;th&gt;标准&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;&lt;td&gt;必须&lt;/td&gt;&lt;td&gt;对象、isa、消息发送/转发、内存、GCD、RunLoop、响应链、性能&lt;/td&gt;&lt;td&gt;概念 → 原理 → 典型坑 → 项目排查，能连续讲 2 分钟。&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;必须&lt;/td&gt;&lt;td&gt;Swift、Swift Concurrency、网络、架构、单测&lt;/td&gt;&lt;td&gt;这套 OC 视频不覆盖，需要另行学习和在展示项目中实践。&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;加分&lt;/td&gt;&lt;td&gt;objc4-781 编译调试、malloc 源码、属性类型编码、objc_class 字段细节&lt;/td&gt;&lt;td&gt;第 3 周后按面试反馈回看；理解思路，不背私有实现。&lt;/td&gt;&lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-    &lt;h3 class=&quot;section-title&quot; style=&quot;margin-top:20px&quot;&gt;每个视频的固定四步&lt;/h3&gt;
-    &lt;ol&gt;
-      &lt;li&gt;记下 3 个关键结论。&lt;/li&gt;
-      &lt;li&gt;不看笔记，脱稿复述 2 分钟。&lt;/li&gt;
-      &lt;li&gt;写一个最小 Demo，或画出调用流程图。&lt;/li&gt;
-      &lt;li&gt;补一条“项目中遇到会如何排查”的答案。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/section&gt;
-
-  &lt;script&gt;
-    (() =&gt; {
-      const root = document.getElementById(&#x27;ios-study-plan&#x27;);
-      const storageKey = &#x27;ios-study-plan-progress-v1&#x27;;
-      const checks = Array.from(root.querySelectorAll(&#x27;.check&#x27;));
-      const progress = root.querySelector(&#x27;#overall-progress&#x27;);
-      const progressLabel = root.querySelector(&#x27;#progress-label&#x27;);
-      const tabs = Array.from(root.querySelectorAll(&#x27;[role=&quot;tab&quot;]&#x27;));
-      const panels = Array.from(root.querySelectorAll(&#x27;.tab-panel&#x27;));
+  <main class="page" id="study-plan">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">iOS interview · 2026</p>
+        <h1>把复习变成可执行的节奏。</h1>
+        <p class="lede">面向 3–5 年经验 iOS 岗位的 8 周恢复计划。前两周已结合你的 28 节原理视频，按面试优先级重新编排。</p>
+        <div class="pill-row" aria-label="学习计划标签">
+          <span class="pill primary">8 周主计划</span>
+          <span class="pill">14 天原理视频</span>
+          <span class="pill">从第 3 周开始投递</span>
+        </div>
+      </div>
+      <section class="progress-card" aria-label="整体进度">
+        <div class="progress-top"><span class="muted">前两周完成度</span><strong class="progress-number" id="progress-number">0 / 14</strong></div>
+        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="14" aria-valuenow="0" aria-label="前两周完成度"><div class="progress-fill" id="progress-fill"></div></div>
+        <div class="progress-foot"><span>勾选会自动保存</span><span id="progress-percent">0%</span></div>
+      </section>
+    </header>
+
+    <nav class="tabs" role="tablist" aria-label="学习计划视图">
+      <button class="tab" type="button" role="tab" id="daily-tab" aria-selected="true" aria-controls="daily-panel">前两周逐日安排</button>
+      <button class="tab" type="button" role="tab" id="roadmap-tab" aria-selected="false" aria-controls="roadmap-panel">8 周路线图</button>
+      <button class="tab" type="button" role="tab" id="review-tab" aria-selected="false" aria-controls="review-panel">复习方法与优先级</button>
+    </nav>
+
+    <section class="panel" id="daily-panel" role="tabpanel" aria-labelledby="daily-tab">
+      <div class="section-intro"><div><p class="eyebrow">第一阶段</p><h2>先建立能说清的底层能力</h2></div><p>每天按“视频 → 最小 Demo → 脱稿复述 → 算法”推进。源码不用逐行背，重点是把原理连到常见问题和项目处理方式。</p></div>
+
+      <section class="week" data-week="1">
+        <header class="week-header"><div><p class="week-label">第 1 周</p><h2>对象、内存与消息机制</h2></div><span class="week-count" data-week-progress="1">0 / 6</span></header>
+        <ol class="day-list">
+          <li class="day"><label class="day-check"><input type="checkbox" data-id="d1"><span class="sr-only">完成第 1 天</span></label><div class="day-heading"><span class="day-index">第 1 天</span><strong class="day-focus">对象模型、Runtime 入门</strong></div><p class="day-video">视频 1：源码探索方式<br>视频 7：isa 与类关联</p><p class="day-output">画出对象、类对象、元类关系；脱稿说明 isa 的作用。</p></li>
+          <li class="day"><label class="day-check"><input type="checkbox" data-id="d2"><span class="sr-only">完成第 2 天</span></label><div class="day-heading"><span class="day-index">第 2 天</span><strong class="day-focus">对象创建</strong></div><p class="day-video">视频 2：alloc/init/new<br>视频 4：NSObject alloc</p><p class="day-output">说明 alloc、init、new 的区别；写最小对象创建 Demo。</p></li>
+          <li class="day"><label class="day-check"><input type="checkbox" data-id="d3"><span class="sr-only">完成第 3 天</span></label><div class="day-heading"><span class="day-index">第 3 天</span><strong class="day-focus">内存对齐与对象大小</strong></div><p class="day-video">视频 5：内存对齐<br>视频 6：malloc 源码分析</p><p class="day-output">计算对象大小；说明 instance size 和实际分配大小可能不同的原因。</p></li>
+          <li class="day"><label class="day-check"><input type="checkbox" data-id="d4"><span class="sr-only">完成第 4 天</span></label><div class="day-heading"><span class="day-index">第 4 天</span><strong class="day-focus">类本质、成员变量</strong></div><p class="day-video">视频 8：类的本质<br>视频 18–19：类底层结构</p><p class="day-output">讲清 ivar、property、method；理解继承链上的成员变量查找。</p></li>
+          <li class="day"><label class="day-check"><input type="checkbox" data-id="d5"><span class="sr-only">完成第 5 天</span></label><div class="day-heading"><span class="day-index">第 5 天</span><strong class="day-focus">内存管理与弱引用</strong></div><p class="day-video">视频 10：strong/weak<br>视频 20：引用计数、循环引用、弱引用</p><p class="day-output">写 Block、Timer、Delegate 三类循环引用；用 Instruments 找一次泄漏。</p></li>
+          <li class="day"><label class="day-check"><input type="checkbox" data-id="d6"><span class="sr-only">完成第 6 天</span></label><div class="day-heading"><span class="day-index">第 6 天</span><strong class="day-focus">方法查找与缓存</strong></div><p class="day-video">视频 11：cache_t<br>视频 12：objc_msgSend 快速查找</p><p class="day-output">复述消息发送的缓存命中路径；整理本周 20 个问答卡片。</p></li>
+        </ol>
+      </section>
+
+      <section class="week" data-week="2">
+        <header class="week-header"><div><p class="week-label">第 2 周</p><h2>转发、并发、UI 与工程基础</h2></div><span class="week-count" data-week-progress="2">0 / 8</span></header>
+        <ol class="day-list">
+          <li class="day"><label class="day-check"><input type="checkbox" data-id="d7"><span class="sr-only">完成第 7 天</span></label><div class="day-heading"><span class="day-index">第 7 天</span><strong class="day-focus">慢速查找、消息转发</strong></div><p class="day-video">视频 13：慢速查找<br>视频 14：消息转发</p><p class="day-output">讲清动态方法解析、快速转发、完整消息转发三阶段。</p></li>
+          <li class="day"><label class="day-check"><input type="checkbox" data-id="d8"><span class="sr-only">完成第 8 天</span></label><div class="day-heading"><span class="day-index">第 8 天</span><strong class="day-focus">加载、初始化、元类</strong></div><p class="day-video">视频 15：类加载与初始化<br>视频 16–17：isa 走位与继承</p><p class="day-output">准确区分 +load 和 +initialize；画出根类、根元类关系。</p></li>
+          <li class="day"><label class="day-check"><input type="checkbox" data-id="d9"><span class="sr-only">完成第 9 天</span></label><div class="day-heading"><span class="day-index">第 9 天</span><strong class="day-focus">GCD 与线程安全</strong></div><p class="day-video">视频 21–22：GCD 底层</p><p class="day-output">写出主队列死锁例子；说明 sync/async、串行/并发、barrier。</p></li>
+          <li class="day"><label class="day-check"><input type="checkbox" data-id="d10"><span class="sr-only">完成第 10 天</span></label><div class="day-heading"><span class="day-index">第 10 天</span><strong class="day-focus">并发问题与锁</strong></div><p class="day-video">视频 23–24：线程安全、死锁</p><p class="day-output">实现线程安全缓存；说明死锁形成条件及排查方式。</p></li>
+          <li class="day"><label class="day-check"><input type="checkbox" data-id="d11"><span class="sr-only">完成第 11 天</span></label><div class="day-heading"><span class="day-index">第 11 天</span><strong class="day-focus">渲染与性能</strong></div><p class="day-video">视频 25：CPU/GPU、离屏渲染、卡顿</p><p class="day-output">用 Instruments 记录一次卡顿定位；列出离屏渲染触发条件。</p></li>
+          <li class="day"><label class="day-check"><input type="checkbox" data-id="d12"><span class="sr-only">完成第 12 天</span></label><div class="day-heading"><span class="day-index">第 12 天</span><strong class="day-focus">事件与响应链</strong></div><p class="day-video">视频 26：事件传递机制与响应者链</p><p class="day-output">讲清 hit-test 流程；写一个扩大点击区域的 Demo。</p></li>
+          <li class="day"><label class="day-check"><input type="checkbox" data-id="d13"><span class="sr-only">完成第 13 天</span></label><div class="day-heading"><span class="day-index">第 13 天</span><strong class="day-focus">沙盒、持久化、安全</strong></div><p class="day-video">视频 27：沙盒机制</p><p class="day-output">区分 Documents、Library、tmp；选择 UserDefaults、Keychain、文件或数据库。</p></li>
+          <li class="day"><label class="day-check"><input type="checkbox" data-id="d14"><span class="sr-only">完成第 14 天</span></label><div class="day-heading"><span class="day-index">第 14 天</span><strong class="day-focus">架构与设计模式</strong></div><p class="day-video">视频 28：MVC/MVP/MVVM 等</p><p class="day-output">画展示项目的 MVVM + Coordinator 架构与模块边界。</p></li>
+        </ol>
+      </section>
+    </section>
+
+    <section class="panel" id="roadmap-panel" role="tabpanel" aria-labelledby="roadmap-tab" hidden>
+      <div class="section-intro"><div><p class="eyebrow">全局路线</p><h2>8 周，从恢复到面试闭环</h2></div><p>第 3 周开始投递。后续的每一周都应该有真实岗位 JD 和真实面试反馈参与校准。</p></div>
+      <div class="roadmap">
+        <article class="roadmap-item"><span class="roadmap-week">第 1 周</span><h3>底层与 Swift 核心</h3><p>对象、Runtime、内存、Swift 值语义与 Concurrency。</p></article>
+        <article class="roadmap-item"><span class="roadmap-week">第 2 周</span><h3>并发与客户端基础</h3><p>GCD、RunLoop、UI、网络、持久化与性能意识。</p></article>
+        <article class="roadmap-item"><span class="roadmap-week">第 3 周</span><h3>架构与展示项目</h3><p>启动 AI 内容/推荐流项目；开始定向投递。</p></article>
+        <article class="roadmap-item"><span class="roadmap-week">第 4 周</span><h3>性能与稳定性</h3><p>启动、卡顿、内存、崩溃、测试和发布流程。</p></article>
+        <article class="roadmap-item"><span class="roadmap-week">第 5 周</span><h3>简历与项目表达</h3><p>准备 5 个项目故事；稳定开启真实面试。</p></article>
+        <article class="roadmap-item"><span class="roadmap-week">第 6 周</span><h3>专项方向</h3><p>优先深挖 AI 应用客户端；或选择音视频 / IoT。</p></article>
+        <article class="roadmap-item"><span class="roadmap-week">第 7 周</span><h3>模拟面试与算法</h3><p>高频算法 80–100 题，每天至少一轮模拟。</p></article>
+        <article class="roadmap-item"><span class="roadmap-week">第 8 周</span><h3>面试闭环</h3><p>以面试反馈与目标 JD 为准，精准补齐短板。</p></article>
+      </div>
+    </section>
+
+    <section class="panel" id="review-panel" role="tabpanel" aria-labelledby="review-tab" hidden>
+      <div class="section-intro"><div><p class="eyebrow">复习方法</p><h2>别把源码阅读当成终点</h2></div><p>面试输出的最小闭环是：概念、底层机制、典型坑、项目排查。每看完一个主题，就用下面四步完成一次闭环。</p></div>
+      <div class="review-grid">
+        <article class="review-card"><h3>01 · 提炼</h3><p>视频结束后，只写 3 个关键结论；不记录大段逐字笔记。</p></article>
+        <article class="review-card"><h3>02 · 复述</h3><p>关掉视频和笔记，脱稿讲 2 分钟；卡住的位置就是下一次复习重点。</p></article>
+        <article class="review-card"><h3>03 · 验证</h3><p>写一个最小 Demo，或画出调用流程图，让概念有可验证的落点。</p></article>
+        <article class="review-card"><h3>04 · 关联</h3><p>补一句“项目中遇到我会如何排查”，把知识迁移到面试表达。</p></article>
+        <article class="review-card"><h3>算法节奏</h3><p>每天 1 小时。前两周覆盖数组、链表、哈希、树、二分与并发相关题。</p></article>
+        <article class="review-card"><h3>投递节奏</h3><p>第 3 周起每天投递 10–15 个高匹配岗位，用面试反推学习优先级。</p></article>
+      </div>
+      <div class="priority-list">
+        <div class="priority"><strong>必须掌握</strong><p>对象、isa、消息发送/转发、内存、GCD、RunLoop、响应链、性能。</p><p>能以“概念 → 原理 → 典型坑 → 项目排查”连续讲 2 分钟。</p></div>
+        <div class="priority"><strong>必须补齐</strong><p>Swift、Swift Concurrency、网络、架构、单元测试。</p><p>这套 OC 视频不覆盖，需要在展示项目中独立实践。</p></div>
+        <div class="priority"><strong>冲刺加分</strong><p>objc4-781 调试、malloc、属性类型编码、objc_class 字段细节。</p><p>第 3 周后按面试反馈回看；理解思路，不背私有实现。</p></div>
+      </div>
+    </section>
+
+    <footer class="footer">每次完成学习后勾选当天任务；进度仅保存在当前浏览器。</footer>
+  </main>
+
+  <script>
+    (() => {
+      const root = document.getElementById('study-plan');
+      const key = 'ios-study-plan-progress-v2';
+      const checks = Array.from(root.querySelectorAll('input[type="checkbox"][data-id]'));
+      const tabs = Array.from(root.querySelectorAll('[role="tab"]'));
+      const panels = Array.from(root.querySelectorAll('[role="tabpanel"]'));
+      const number = root.querySelector('#progress-number');
+      const fill = root.querySelector('#progress-fill');
+      const percent = root.querySelector('#progress-percent');
+      const bar = root.querySelector('[role="progressbar"]');
       let saved = {};
-      try { saved = JSON.parse(localStorage.getItem(storageKey) || &#x27;{}&#x27;); } catch (_) { saved = {}; }
+      try { saved = JSON.parse(localStorage.getItem(key) || '{}'); } catch (_) { saved = {}; }
 
-      function update() {
-        const completed = checks.filter((check) =&gt; check.checked).length;
-        progress.max = checks.length;
-        progress.value = completed;
-        progressLabel.textContent = `${completed} / ${checks.length}`;
-        [1, 2].forEach((week) =&gt; {
-          const weekChecks = Array.from(root.querySelectorAll(`[data-week=&quot;${week}&quot;] .check`));
-          const weekDone = weekChecks.filter((check) =&gt; check.checked).length;
-          root.querySelector(`[data-week-progress=&quot;${week}&quot;]`).textContent = `${weekDone} / ${weekChecks.length}`;
+      function updateProgress() {
+        const done = checks.filter((check) => check.checked).length;
+        const ratio = Math.round((done / checks.length) * 100);
+        number.textContent = `${done} / ${checks.length}`;
+        fill.style.width = `${ratio}%`;
+        percent.textContent = `${ratio}%`;
+        bar.setAttribute('aria-valuenow', String(done));
+        [1, 2].forEach((week) => {
+          const weekChecks = Array.from(root.querySelectorAll(`[data-week="${week}"] input[type="checkbox"]`));
+          const weekDone = weekChecks.filter((check) => check.checked).length;
+          root.querySelector(`[data-week-progress="${week}"]`).textContent = `${weekDone} / ${weekChecks.length}`;
         });
+        checks.forEach((check) => check.closest('.day').classList.toggle('completed', check.checked));
       }
 
-      checks.forEach((check) =&gt; {
+      checks.forEach((check) => {
         check.checked = Boolean(saved[check.dataset.id]);
-        check.addEventListener(&#x27;change&#x27;, () =&gt; {
+        check.addEventListener('change', () => {
           saved[check.dataset.id] = check.checked;
-          localStorage.setItem(storageKey, JSON.stringify(saved));
-          update();
+          localStorage.setItem(key, JSON.stringify(saved));
+          updateProgress();
         });
       });
 
-      tabs.forEach((tab) =&gt; {
-        tab.addEventListener(&#x27;click&#x27;, () =&gt; {
-          tabs.forEach((item) =&gt; {
-            const selected = item === tab;
-            item.setAttribute(&#x27;aria-selected&#x27;, String(selected));
-            item.classList.toggle(&#x27;btn-primary&#x27;, selected);
-          });
-          panels.forEach((panel) =&gt; { panel.hidden = panel.id !== tab.getAttribute(&#x27;aria-controls&#x27;); });
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const target = tab.getAttribute('aria-controls');
+          tabs.forEach((item) => item.setAttribute('aria-selected', String(item === tab)));
+          panels.forEach((panel) => { panel.hidden = panel.id !== target; });
         });
       });
-      update();
+      updateProgress();
     })();
-  &lt;/script&gt;
-&lt;/div&gt;
-
-&lt;script src=&quot;https://unpkg.com/@floating-ui/core@1.7.3/dist/floating-ui.core.umd.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;https://unpkg.com/@floating-ui/dom@1.7.4/dist/floating-ui.dom.umd.min.js&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
-(() =&gt; {
-  if (window.FloatingUIDOM == null) {
-    return;
-  }
-  const { autoUpdate, computePosition, flip, offset, shift, size } =
-    window.FloatingUIDOM;
-  const tooltipPlacements = new Set([&quot;top&quot;, &quot;right&quot;, &quot;bottom&quot;, &quot;left&quot;]);
-  const tooltipId = `codex-visualization-tooltip-${
-    window.crypto?.randomUUID?.() ?? Date.now().toString(36)
-  }`;
-  const tooltipGap = 5;
-  const hoverDelay = 700;
-  const skipDelay = 300;
-  let activeTrigger = null;
-  let pendingTrigger = null;
-  let tooltip = null;
-  let openTimeout = null;
-  let autoUpdateCleanup = null;
-  let positionRequest = 0;
-  let skipDelayUntil = 0;
-
-  const getTrigger = (target) =&gt;
-    target?.nodeType === Node.ELEMENT_NODE
-      ? target.closest(&quot;[data-tooltip]&quot;)
-      : null;
-  const containsTarget = (trigger, target) =&gt;
-    target?.nodeType != null &amp;&amp; trigger.contains(target);
-  const getContent = (trigger) =&gt;
-    trigger.getAttribute(&quot;data-tooltip&quot;)?.trim() ?? &quot;&quot;;
-  const getPlacement = (trigger) =&gt; {
-    const placement = trigger.getAttribute(&quot;data-tooltip-placement&quot;);
-    return tooltipPlacements.has(placement) ? placement : &quot;top&quot;;
-  };
-  const getTooltip = () =&gt; {
-    if (tooltip == null) {
-      tooltip = document.createElement(&quot;div&quot;);
-      tooltip.id = tooltipId;
-      tooltip.className = &quot;tooltip&quot;;
-      tooltip.setAttribute(&quot;role&quot;, &quot;tooltip&quot;);
-    }
-    return tooltip;
-  };
-  const setDescribedBy = (trigger, described) =&gt; {
-    const ids = new Set(
-      (trigger.getAttribute(&quot;aria-describedby&quot;) ?? &quot;&quot;)
-        .split(/\s+/)
-        .filter(Boolean),
-    );
-    if (described) {
-      ids.add(tooltipId);
-    } else {
-      ids.delete(tooltipId);
-    }
-    if (ids.size === 0) {
-      trigger.removeAttribute(&quot;aria-describedby&quot;);
-    } else {
-      trigger.setAttribute(&quot;aria-describedby&quot;, [...ids].join(&quot; &quot;));
-    }
-  };
-  const clearOpenTimeout = () =&gt; {
-    if (openTimeout != null) {
-      window.clearTimeout(openTimeout);
-      openTimeout = null;
-    }
-    pendingTrigger = null;
-  };
-  const closeTooltip = (activateSkipDelay = true) =&gt; {
-    clearOpenTimeout();
-    positionRequest += 1;
-    autoUpdateCleanup?.();
-    autoUpdateCleanup = null;
-    if (activeTrigger == null) {
-      return;
-    }
-    setDescribedBy(activeTrigger, false);
-    activeTrigger = null;
-    tooltip?.remove();
-    if (activateSkipDelay) {
-      skipDelayUntil = Date.now() + skipDelay;
-    }
-  };
-  const updatePosition = (trigger, floating) =&gt; {
-    const request = ++positionRequest;
-    void computePosition(trigger, floating, {
-      middleware: [
-        offset(tooltipGap),
-        flip({ padding: tooltipGap }),
-        shift({ padding: tooltipGap }),
-        size({
-          padding: tooltipGap,
-          apply({ availableHeight, availableWidth, elements }) {
-            elements.floating.style.setProperty(
-              &quot;--tooltip-available-width&quot;,
-              `${Math.max(0, availableWidth)}px`,
-            );
-            elements.floating.style.setProperty(
-              &quot;--tooltip-available-height&quot;,
-              `${Math.max(0, availableHeight)}px`,
-            );
-          },
-        }),
-      ],
-      placement: getPlacement(trigger),
-      strategy: &quot;fixed&quot;,
-    })
-      .then(({ x, y }) =&gt; {
-        if (activeTrigger !== trigger || request !== positionRequest) {
-          return;
-        }
-        const scale = window.devicePixelRatio || 1;
-        floating.style.transform = `translate(${Math.round(x * scale) / scale}px, ${Math.round(y * scale) / scale}px)`;
-        floating.style.visibility = &quot;visible&quot;;
-      })
-      .catch(() =&gt; {
-        if (activeTrigger === trigger &amp;&amp; request === positionRequest) {
-          closeTooltip(false);
-        }
-      });
-  };
-  const openTooltip = (trigger) =&gt; {
-    const content = getContent(trigger);
-    if (!trigger.isConnected || content.length === 0) {
-      return;
-    }
-    clearOpenTimeout();
-    if (activeTrigger === trigger) {
-      return;
-    }
-    closeTooltip();
-    const floating = getTooltip();
-    floating.textContent = content;
-    floating.style.visibility = &quot;hidden&quot;;
-    floating.style.transform = &quot;translate(0, 0)&quot;;
-    document.body.appendChild(floating);
-    activeTrigger = trigger;
-    setDescribedBy(trigger, true);
-    autoUpdateCleanup = autoUpdate(trigger, floating, () =&gt; {
-      updatePosition(trigger, floating);
-    });
-  };
-  const requestOpen = (trigger, immediate = false) =&gt; {
-    if (
-      getContent(trigger).length === 0 ||
-      activeTrigger === trigger ||
-      pendingTrigger === trigger
-    ) {
-      return;
-    }
-    clearOpenTimeout();
-    pendingTrigger = trigger;
-    const delay =
-      immediate || activeTrigger != null || Date.now() &lt; skipDelayUntil
-        ? 0
-        : hoverDelay;
-    if (delay === 0) {
-      openTooltip(trigger);
-      return;
-    }
-    openTimeout = window.setTimeout(() =&gt; {
-      openTimeout = null;
-      pendingTrigger = null;
-      openTooltip(trigger);
-    }, delay);
-  };
-  const handlePointerOpen = (event) =&gt; {
-    if (event.pointerType === &quot;touch&quot;) {
-      return;
-    }
-    const trigger = getTrigger(event.target);
-    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
-      return;
-    }
-    requestOpen(trigger);
-  };
-  const handleLeave = (event) =&gt; {
-    const trigger = getTrigger(event.target);
-    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
-      return;
-    }
-    if (activeTrigger === trigger || pendingTrigger === trigger) {
-      closeTooltip();
-    }
-  };
-  const handleFocusIn = (event) =&gt; {
-    const trigger = getTrigger(event.target);
-    if (trigger?.matches(&quot;:focus-visible&quot;)) {
-      requestOpen(trigger, true);
-    }
-  };
-  const handleKeyDown = (event) =&gt; {
-    if (event.key === &quot;Escape&quot;) {
-      closeTooltip();
-    }
-  };
-  const handleContextMenu = (event) =&gt; {
-    const trigger = getTrigger(event.target);
-    if (activeTrigger === trigger || pendingTrigger === trigger) {
-      closeTooltip();
-    }
-  };
-  const destroy = () =&gt; {
-    closeTooltip(false);
-    document.removeEventListener(&quot;pointerover&quot;, handlePointerOpen);
-    document.removeEventListener(&quot;pointerout&quot;, handleLeave);
-    document.removeEventListener(&quot;focusin&quot;, handleFocusIn);
-    document.removeEventListener(&quot;focusout&quot;, handleLeave);
-    document.removeEventListener(&quot;keydown&quot;, handleKeyDown);
-    document.removeEventListener(&quot;contextmenu&quot;, handleContextMenu);
-    tooltip = null;
-  };
-
-  document.addEventListener(&quot;pointerover&quot;, handlePointerOpen);
-  document.addEventListener(&quot;pointerout&quot;, handleLeave);
-  document.addEventListener(&quot;focusin&quot;, handleFocusIn);
-  document.addEventListener(&quot;focusout&quot;, handleLeave);
-  document.addEventListener(&quot;keydown&quot;, handleKeyDown);
-  document.addEventListener(&quot;contextmenu&quot;, handleContextMenu);
-  window.addEventListener(&quot;pagehide&quot;, destroy, { once: true });
-})();
-&lt;/script&gt;
-&lt;script id=&quot;codex-visualization-lucide&quot; async src=&quot;https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
-(() =&gt; {
-  const initialize = () =&gt; {
-    globalThis.lucide?.createIcons({ attrs: { width: 16, height: 16 } });
-  };
-  if (globalThis.lucide != null) {
-    initialize();
-    return;
-  }
-  document
-    .getElementById(&quot;codex-visualization-lucide&quot;)
-    ?.addEventListener(&quot;load&quot;, initialize, { once: true });
-})();
-&lt;/script&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;
-"></iframe>
+  </script>
 </body>
 </html>
