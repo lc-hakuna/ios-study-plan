@@ -806,11 +806,25 @@
         panels.forEach((panel) => { panel.hidden = panel.id !== target; });
       }
 
+      let activeWeek = null;
+
+      function expandAllWeeks() {
+        activeWeek = null;
+        sideNav.forEach((button) => button.closest('li').classList.remove('active'));
+        generatedWeeks.querySelectorAll('.week').forEach((w) => { w.hidden = false; });
+      }
+
       function activateWeek(week) {
         showPanel('daily-panel');
+        if (activeWeek === week) {
+          expandAllWeeks();
+          return;
+        }
+        activeWeek = week;
         sideNav.forEach((button) => button.closest('li').classList.toggle('active', button.dataset.week === String(week)));
         root.querySelectorAll('.roadmap-item').forEach((item) => item.classList.remove('is-target'));
         root.querySelectorAll('.campaign').forEach((item) => item.classList.remove('is-target'));
+        generatedWeeks.querySelectorAll('.week').forEach((w) => { w.hidden = w.dataset.week !== String(week); });
         const target = root.querySelector(`#week-${week}`);
         if (target) {
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -819,7 +833,9 @@
 
       tabs.forEach((tab) => {
         tab.addEventListener('click', () => {
-          showPanel(tab.getAttribute('aria-controls'));
+          const panelId = tab.getAttribute('aria-controls');
+          showPanel(panelId);
+          if (panelId === 'daily-panel') expandAllWeeks();
         });
       });
       sideNav.forEach((button) => button.addEventListener('click', () => activateWeek(button.dataset.week)));
