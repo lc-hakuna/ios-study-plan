@@ -451,16 +451,15 @@
         </div>
       </div>
       <section class="adventure-card" aria-label="整体进度">
-        <div class="progress-top"><span class="muted">前两周完成度</span><strong class="progress-number" id="progress-number">0 / 14</strong></div>
-        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="14" aria-valuenow="0" aria-label="前两周完成度"><div class="progress-fill" id="progress-fill"></div></div>
+        <div class="progress-top"><span class="muted">主线完成度</span><strong class="progress-number" id="progress-number">0 / 50</strong></div>
+        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="50" aria-valuenow="0" aria-label="主线完成度"><div class="progress-fill" id="progress-fill"></div></div>
         <div class="progress-foot"><span>勾选会自动保存</span><span id="progress-percent">0%</span></div>
       </section>
     </header>
 
     <nav class="game-toolbar" role="tablist" aria-label="学习计划视图">
-      <button class="tab" type="button" role="tab" id="daily-tab" aria-selected="true" aria-controls="daily-panel">前两周逐日安排</button>
+      <button class="tab" type="button" role="tab" id="daily-tab" aria-selected="true" aria-controls="daily-panel">8 周逐日计划</button>
       <button class="tab" type="button" role="tab" id="roadmap-tab" aria-selected="false" aria-controls="roadmap-panel">8 周路线图</button>
-      <button class="tab" type="button" role="tab" id="mission-tab" aria-selected="false" aria-controls="mission-panel">第 3–8 周详表</button>
       <button class="tab" type="button" role="tab" id="review-tab" aria-selected="false" aria-controls="review-panel">复习方法与优先级</button>
     </nav>
 
@@ -479,8 +478,8 @@
           <li><button class="side-nav" type="button" data-week="8">○ 第 8 周：面试联盟</button></li>
         </ul>
         <div class="side-stats">
-          <div class="side-stat"><strong>14</strong><span>主线任务</span></div>
-          <div class="side-stat"><strong>0</strong><span>已完成</span></div>
+          <div class="side-stat"><strong>50</strong><span>主线任务</span></div>
+          <div class="side-stat"><strong id="completed-count">0</strong><span>已完成</span></div>
         </div>
       </aside>
       <div class="game-content">
@@ -525,19 +524,20 @@
         <span>补齐 RunLoop、URLSession / HTTP 缓存、Keychain 与持久化；Swift Concurrency 不能只用 GCD 替代。</span>
         <span>算法：链表、栈队列、二叉树、二分、递归与基础动态规划。</span>
       </aside>
+      <div id="generated-weeks"></div>
     </section>
 
     <section class="panel" id="roadmap-panel" role="tabpanel" aria-labelledby="roadmap-tab" hidden>
       <div class="section-intro"><div><p class="eyebrow">全局路线</p><h2>8 周，从恢复到面试闭环</h2></div><p>第 3 周开始投递。后续的每一周都应该有真实岗位 JD 和真实面试反馈参与校准。</p></div>
       <div class="roadmap">
-        <article class="roadmap-item" id="week-1"><span class="roadmap-week">第 1 周</span><h3>底层与 Swift 核心</h3><p>对象、Runtime、内存、Swift 值语义与 Concurrency。</p><ul><li>完成对象、内存与消息机制的 6 个关卡。</li><li>补齐 Swift 值语义、闭包和泛型。</li></ul></article>
-        <article class="roadmap-item" id="week-2"><span class="roadmap-week">第 2 周</span><h3>并发与客户端基础</h3><p>GCD、RunLoop、UI、网络、持久化与性能意识。</p><ul><li>完成并发、响应链、性能和沙盒的 8 个关卡。</li><li>复盘一轮高频算法：链表、树、二分。</li></ul></article>
-        <article class="roadmap-item" id="week-3"><span class="roadmap-week">第 3 周 · 架构之城</span><h3>架构与展示项目</h3><p>启动 AI 内容 / 推荐流展示项目，并开始定向投递。</p><ul><li>Day 1–2：MVVM、Coordinator、SPM 模块化与路由。</li><li>Day 3–5：推荐流、埋点 / 分桶、AI 流式对话模块。</li><li>Day 6：画架构图，讲清模块边界与技术取舍。</li></ul></article>
-        <article class="roadmap-item" id="week-4"><span class="roadmap-week">第 4 周 · 性能高塔</span><h3>性能与稳定性</h3><p>把“性能优化”做成可演示、可量化的项目能力。</p><ul><li>启动耗时、列表卡顿、内存峰值与缓存治理。</li><li>使用 Instruments 完成一次定位和复盘。</li><li>补核心单测、灰度与崩溃治理方案。</li></ul></article>
-        <article class="roadmap-item" id="week-5"><span class="roadmap-week">第 5 周 · 简历驿站</span><h3>简历与项目表达</h3><p>把能力转化成面试官能快速识别的信号。</p><ul><li>重写简历：iOS 3.5 年 + 推荐策略 1.5 年。</li><li>准备架构、性能、故障、协作、策略联动 5 个故事。</li><li>每天投递 10–15 个高匹配岗位。</li></ul></article>
-        <article class="roadmap-item" id="week-6"><span class="roadmap-week">第 6 周 · 专项秘境</span><h3>AI 应用客户端（推荐）</h3><p>选择一个垂直方向深入，不再平均用力。</p><ul><li>AI：SSE / WebSocket、流式 UI、多轮会话、Markdown。</li><li>或音视频：AVFoundation、预加载、缓存、首帧。</li><li>或 IoT：BLE、MQTT、配网、断线重连。</li></ul></article>
-        <article class="roadmap-item" id="week-7"><span class="roadmap-week">第 7 周 · 模拟道场</span><h3>模拟面试与算法</h3><p>让知识变成稳定输出，提前暴露表达断点。</p><ul><li>每天 1 场 60–90 分钟模拟：基础、项目、算法、行为面。</li><li>完成高频算法 80–100 题的重点复盘。</li><li>当天把不会的问题补成可口述答案。</li></ul></article>
-        <article class="roadmap-item" id="week-8"><span class="roadmap-week">第 8 周 · 面试联盟</span><h3>面试闭环</h3><p>用真实 JD 和真实面试反馈，精准收口短板。</p><ul><li>每场面试后 30 分钟内记录问题与缺口。</li><li>完善 30 秒 / 2 分钟 Gap 说明和项目自我介绍。</li><li>不再泛学，只补目标岗位反复出现的能力。</li></ul></article>
+        <article class="roadmap-item" id="roadmap-week-1"><span class="roadmap-week">第 1 周</span><h3>底层与 Swift 核心</h3><p>对象、Runtime、内存、Swift 值语义与 Concurrency。</p><ul><li>完成对象、内存与消息机制的 6 个关卡。</li><li>补齐 Swift 值语义、闭包和泛型。</li></ul></article>
+        <article class="roadmap-item" id="roadmap-week-2"><span class="roadmap-week">第 2 周</span><h3>并发与客户端基础</h3><p>GCD、RunLoop、UI、网络、持久化与性能意识。</p><ul><li>完成并发、响应链、性能和沙盒的 8 个关卡。</li><li>复盘一轮高频算法：链表、树、二分。</li></ul></article>
+        <article class="roadmap-item" id="roadmap-week-3"><span class="roadmap-week">第 3 周 · 架构之城</span><h3>架构与展示项目</h3><p>启动 AI 内容 / 推荐流展示项目，并开始定向投递。</p><ul><li>Day 1–2：MVVM、Coordinator、SPM 模块化与路由。</li><li>Day 3–5：推荐流、埋点 / 分桶、AI 流式对话模块。</li><li>Day 6：画架构图，讲清模块边界与技术取舍。</li></ul></article>
+        <article class="roadmap-item" id="roadmap-week-4"><span class="roadmap-week">第 4 周 · 性能高塔</span><h3>性能与稳定性</h3><p>把“性能优化”做成可演示、可量化的项目能力。</p><ul><li>启动耗时、列表卡顿、内存峰值与缓存治理。</li><li>使用 Instruments 完成一次定位和复盘。</li><li>补核心单测、灰度与崩溃治理方案。</li></ul></article>
+        <article class="roadmap-item" id="roadmap-week-5"><span class="roadmap-week">第 5 周 · 简历驿站</span><h3>简历与项目表达</h3><p>把能力转化成面试官能快速识别的信号。</p><ul><li>重写简历：iOS 3.5 年 + 推荐策略 1.5 年。</li><li>准备架构、性能、故障、协作、策略联动 5 个故事。</li><li>每天投递 10–15 个高匹配岗位。</li></ul></article>
+        <article class="roadmap-item" id="roadmap-week-6"><span class="roadmap-week">第 6 周 · 专项秘境</span><h3>AI 应用客户端（推荐）</h3><p>选择一个垂直方向深入，不再平均用力。</p><ul><li>AI：SSE / WebSocket、流式 UI、多轮会话、Markdown。</li><li>或音视频：AVFoundation、预加载、缓存、首帧。</li><li>或 IoT：BLE、MQTT、配网、断线重连。</li></ul></article>
+        <article class="roadmap-item" id="roadmap-week-7"><span class="roadmap-week">第 7 周 · 模拟道场</span><h3>模拟面试与算法</h3><p>让知识变成稳定输出，提前暴露表达断点。</p><ul><li>每天 1 场 60–90 分钟模拟：基础、项目、算法、行为面。</li><li>完成高频算法 80–100 题的重点复盘。</li><li>当天把不会的问题补成可口述答案。</li></ul></article>
+        <article class="roadmap-item" id="roadmap-week-8"><span class="roadmap-week">第 8 周 · 面试联盟</span><h3>面试闭环</h3><p>用真实 JD 和真实面试反馈，精准收口短板。</p><ul><li>每场面试后 30 分钟内记录问题与缺口。</li><li>完善 30 秒 / 2 分钟 Gap 说明和项目自我介绍。</li><li>不再泛学，只补目标岗位反复出现的能力。</li></ul></article>
       </div>
     </section>
 
@@ -646,6 +646,84 @@
     (() => {
       const root = document.getElementById('study-plan');
       const key = 'ios-study-plan-progress-v2';
+      const extraWeeks = [
+        {
+          week: 3, label: '第 3 周 · 架构之城', title: '架构、组件化与展示项目启动',
+          tasks: [
+            ['架构设计', 'MVC、MVVM、Coordinator、单向数据流', '画展示项目模块边界；说明每种架构的使用条件与取舍。'],
+            ['组件化与依赖', 'SPM、CocoaPods、静态库 / 动态库、路由', '拆出 Network、DesignSystem；实现一个最小 Router。'],
+            ['项目骨架', '依赖注入、Repository、Use Case、单元测试边界', '搭建 Feed、Detail、Profile、Analytics 模块并能编译运行。'],
+            ['推荐流模块', '信息流性能、埋点、曝光 / 点击、A/B 分桶基础', '实现推荐 Tab 与事件埋点；把策略经历转化为客户端亮点。'],
+            ['AI 流式模块', 'SSE / WebSocket、async/await、Markdown 渲染', '实现增量回答、取消、重试、错误状态和会话滚动。'],
+            ['架构复盘', '架构设计面常见追问；二分、递归、回溯', '录音模拟项目架构面；完成 8–10 道算法题。']
+          ]
+        },
+        {
+          week: 4, label: '第 4 周 · 性能高塔', title: '性能、稳定性与工程质量',
+          tasks: [
+            ['启动优化', '冷 / 热启动、+load、动态库、首屏渲染', '为项目加启动耗时采集；写一份启动优化方案。'],
+            ['卡顿与掉帧', '帧率、主线程预算、Time Profiler、Core Animation', '制造并定位一次列表卡顿；优化图片解码或布局。'],
+            ['内存与崩溃', 'Leaks、Allocations、OOM、符号化、弱引用', '排查一次泄漏并写复盘；为缓存增加上限与清理策略。'],
+            ['包体与功耗', '资源压缩、无用代码、后台任务、网络合并', '列出项目的包体 / 耗电优化清单与技术取舍。'],
+            ['测试与发布', 'XCTest、Mock、CI、灰度、开关、回滚', '为网络层和分桶逻辑补单测；整理发布流程图。'],
+            ['性能模拟面', '启动、卡顿、OOM、复杂列表、崩溃治理', '连续口述 5 个性能专题；复盘薄弱点并补 Demo。']
+          ]
+        },
+        {
+          week: 5, label: '第 5 周 · 简历驿站', title: '简历、项目表达与真实面试',
+          tasks: [
+            ['简历重写', 'STAR / CAR 表达、量化结果、岗位 JD 关键词', '写成“iOS 3.5 年 + 推荐策略 1.5 年”；突出架构与数据闭环。'],
+            ['五个项目故事', '架构重构、性能优化、线上故障、协作推进、策略联动', '每个故事写背景、难点、方案取舍、结果、复盘。'],
+            ['Gap 与行为面', '自我介绍、职业选择、冲突协作、失败复盘', '准备 30 秒和 2 分钟 Gap 回答，录音并修改。'],
+            ['展示项目演示', '项目 README、架构图、演示路线、面试追问', '录制一遍项目讲解；确保能独立跑通核心路径。'],
+            ['定向投递', 'BOSS JD、AI / 内容 / 工具 / IoT 客户端岗位', '投递 10–15 个高匹配岗位；记录岗位关键词与缺口。'],
+            ['面试反馈闭环', '面试复盘模板、高频算法复写', '每场面试后 30 分钟内记录问题；更新下一周的补课清单。']
+          ]
+        },
+        {
+          week: 6, label: '第 6 周 · 专项秘境', title: 'AI 应用客户端专项（推荐）',
+          tasks: [
+            ['流式协议', 'SSE、WebSocket、网络取消、超时、重连', '为 AI 模块实现稳定的增量接收、取消与错误恢复。'],
+            ['会话体验', '多轮对话、历史持久化、滚动定位、输入状态', '实现会话列表与历史恢复；处理长内容和回到底部。'],
+            ['富文本与多模态', 'Markdown、代码块、文件上传、语音输入', '打磨一条能现场演示的 AI 内容生产或问答流程。'],
+            ['隐私与成本', '敏感数据、请求降级、延迟指标、端侧体验', '写出失败降级和隐私处理方案；补充监控埋点。'],
+            ['可选行业分支', '音视频：AVFoundation；IoT：BLE、MQTT、配网', '根据目标 JD 选择一条补充方向，不要三条同时泛学。'],
+            ['专项项目复盘', '专项技术面、项目亮点表达、算法保持', '把专项能力同步到简历和项目故事；完成 8 道算法题。']
+          ]
+        },
+        {
+          week: 7, label: '第 7 周 · 模拟道场', title: '高强度模拟面试与算法',
+          tasks: [
+            ['基础专题面', 'Runtime、内存、RunLoop、网络、沙盒', '进行 60 分钟基础模拟；把卡住的题写成口述答案。'],
+            ['并发专题面', 'GCD、锁、死锁、Swift Concurrency、Actor', '手写线程安全缓存；完成一次并发问题模拟。'],
+            ['架构项目面', '组件化、依赖治理、可测试性、项目取舍', '完整讲展示项目，接受“为什么不用另一方案”的追问。'],
+            ['性能专题面', '启动、卡顿、OOM、崩溃、性能工具', '连续回答性能五题；把案例补到项目故事中。'],
+            ['算法集中练', 'LRU、链表、树、Top K、岛屿、最长子串、DP', '完成并复写最常卡住的 12–15 道高频题。'],
+            ['综合全流程', '项目、基础、算法、行为面、反问', '完成一场 60–90 分钟综合模拟；形成最终错题册。']
+          ]
+        },
+        {
+          week: 8, label: '第 8 周 · 面试联盟', title: '面试闭环与持续投递',
+          tasks: [
+            ['面试账本', '错题分类、知识图谱、面试反馈模板', '汇总全部提问；按基础、项目、算法、行为面排序。'],
+            ['JD 对齐', '岗位要求映射、简历关键词、项目证据', '为每个目标岗位建立“要求 → 我的案例”对照表。'],
+            ['编码保持', '高频算法复写、手写代码、边界检查', '每天 1 小时算法；复写最容易失误的 20 题。'],
+            ['表达收口', '自我介绍、Gap、项目故事、职业选择', '反复练 30 秒、2 分钟、5 分钟三个表达版本。'],
+            ['真实面试', '目标公司技术栈、JD 补课、面试复盘', '按目标公司调整准备内容；当日反馈当日消化。'],
+            ['计划迭代', '投递数据、面试转化、下一阶段策略', '删除低价值泛学内容，保留最有效的项目和模拟节奏。']
+          ]
+        }
+      ];
+      const generatedWeeks = root.querySelector('#generated-weeks');
+      generatedWeeks.innerHTML = extraWeeks.map((entry, weekIndex) => `
+        <section class="week" id="week-${entry.week}" data-week="${entry.week}">
+          <header class="week-header"><div><p class="week-label">${entry.label}</p><h2>${entry.title}</h2></div><span class="week-count" data-week-progress="${entry.week}">0 / ${entry.tasks.length}</span></header>
+          <ol class="day-list">${entry.tasks.map((task, dayIndex) => {
+            const taskId = 15 + weekIndex * 6 + dayIndex;
+            return `<li class="day"><label class="day-check"><input type="checkbox" data-id="d${taskId}"><span class="sr-only">完成第 ${entry.week} 周第 ${dayIndex + 1} 天</span></label><div class="day-heading"><span class="day-index">Day ${dayIndex + 1}</span><strong class="day-focus">${task[0]}</strong></div><p class="day-video">${task[1]}</p><p class="day-output">${task[2]}</p></li>`;
+          }).join('')}</ol>
+        </section>
+      `).join('');
       const checks = Array.from(root.querySelectorAll('input[type="checkbox"][data-id]'));
       const tabs = Array.from(root.querySelectorAll('[role="tab"]'));
       const panels = Array.from(root.querySelectorAll('[role="tabpanel"]'));
@@ -663,8 +741,10 @@
         number.textContent = `${done} / ${checks.length}`;
         fill.style.width = `${ratio}%`;
         percent.textContent = `${ratio}%`;
+        bar.setAttribute('aria-valuemax', String(checks.length));
         bar.setAttribute('aria-valuenow', String(done));
-        [1, 2].forEach((week) => {
+        root.querySelector('#completed-count').textContent = String(done);
+        [1, 2, 3, 4, 5, 6, 7, 8].forEach((week) => {
           const weekChecks = Array.from(root.querySelectorAll(`[data-week="${week}"] input[type="checkbox"]`));
           const weekDone = weekChecks.filter((check) => check.checked).length;
           root.querySelector(`[data-week-progress="${week}"]`).textContent = `${weekDone} / ${weekChecks.length}`;
@@ -687,14 +767,12 @@
       }
 
       function activateWeek(week) {
-        const targetPanel = Number(week) <= 2 ? 'daily-panel' : 'mission-panel';
-        showPanel(targetPanel);
+        showPanel('daily-panel');
         sideNav.forEach((button) => button.closest('li').classList.toggle('active', button.dataset.week === String(week)));
         root.querySelectorAll('.roadmap-item').forEach((item) => item.classList.remove('is-target'));
         root.querySelectorAll('.campaign').forEach((item) => item.classList.remove('is-target'));
-        const target = Number(week) <= 2 ? root.querySelector(`#week-${week}`) : root.querySelector(`#week-${week}-detail`);
+        const target = root.querySelector(`#week-${week}`);
         if (target) {
-          if (Number(week) >= 3) target.classList.add('is-target');
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }
